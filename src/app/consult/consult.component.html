@@ -1,1 +1,17 @@
-<p>consult works!</p>
+<div class="reservation-search">
+    <mat-form-field appearance="fill">
+      <mat-label>Reservation ID</mat-label>
+      <input matInput [(ngModel)]="reservation._id" placeholder="Enter reservation ID">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="search()">Search</button>
+  
+    <div *ngIf="reservation && reservation._id !== '0'">
+      <h2>Reservation Information</h2>
+      <p>Reservation ID: {{ reservation._id }}</p>
+      </div>
+  
+    <div *ngIf="error">
+      <p>Error: {{ error }}</p>
+    </div>
+  </div>
+  
