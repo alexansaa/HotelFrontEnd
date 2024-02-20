@@ -1,0 +1,39 @@
+.nosotros_main {
+    background-color: rgb(252, 241, 229);
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.gray_text {
+    color: gray;
+}
+
+.nosotros_main h2 {
+    text-align: center;
+}
+
+.nosotros_img img{
+    max-width: 50%;
+    /* max-height: 50%; */
+}
+
+.nosotros_content {
+    background-color: white;
+    border-radius: 5px;
+    margin-left: 7%;
+    margin-right: 7%;
+    /* margin-bottom: 3%; */
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-top: 6%;
+    padding-bottom: 1%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nosotros_info {
+    display: flex;
+}
+
+.nosotros_text {
+    margin-right: 2%;
+}

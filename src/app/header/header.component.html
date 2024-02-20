@@ -1,0 +1,25 @@
+<header>
+    <div class="header_head">
+        <div>
+            <h1>Hotel Copo de Nieve</h1>
+            <p>Mejores habitaciones y cabañas del Ecuador</p>
+        </div>
+        <nav>
+            <a [routerLink]="['/']">Inicio</a>
+            <a [routerLink]="['/rooms']">Habitaciones</a>
+            <a [routerLink]="['/search']">Reservar</a>
+            <a [routerLink]="['/about']">Nosotros</a>
+            <a [routerLink]="['/consult']">Consultar Reserva</a>
+            <a href="http://127.0.0.1:5000/login">LogIn</a>
+            <a [routerLink]="['/login']">LogIn</a>
+            <!-- <a href="http://localhost:5000/login">LogIn</a> -->
+        </nav>
+    </div>
+    <ng-container *ngIf="dynamicContent; else defaultContent">
+        <div [innerHTML]="dynamicContent"></div>
+    </ng-container>
+    <ng-template #defaultContent>
+        <h2 *ngIf="headerData">{{ headerData.title }}</h2>
+        <p *ngIf="headerData">{{ headerData.description }}</p>
+    </ng-template>
+</header>

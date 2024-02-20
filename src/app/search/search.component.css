@@ -1,0 +1,144 @@
+.main-container {
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.theluxevoyager.com%2Fwp-content%2Fuploads%2F2019%2F10%2FMashpi-Lodge-Ecuador.jpg&f=1&nofb=1&ipt=9b5b46a449db5b98b640ed1414c4e16e768eeaa9cdd98247f254e33c1f8b231c&ipo=images");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.check-in-out {
+    display: flex;
+    justify-content: space-around;
+    animation: slideIn 0.5s ease-out;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+input {
+    font-size: 25px;
+}
+
+.container img {
+    position: absolute;
+    z-index: -1;
+    filter: brightness(50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+div {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+button.buscar-habitaciones {
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 200px;
+    height: 75px;
+}
+
+.check-in-out-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0px;
+}
+
+.check-in-out,
+.people-habitations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 5px solid #ffffff;
+    border-radius: 5px;
+    animation: slideIn 1.5s ease-out;
+    color: #ffffff;
+}
+
+.check-in-out h3 {
+    color: rgba(255, 255, 255, 0.921);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h3 {
+    margin-bottom: 5px;
+}
+
+input[type="date"] {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#num-people,
+#num-habitations {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.people-habitations button {
+    flex: 1;
+    width: 100px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+button.seleccionar-habitaciones {
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 200px;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+}
+.inner-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.inner-table th,
+.inner-table td,
+.inner-table tr {
+    border: 1px solid grey;
+    /* Puedes ajustar el color y grosor del borde */
+    padding: 8px;
+    text-align: left;
+}
+.table-style {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-style th,
+.table-style td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+.table-style {
+    background-color: rgba(211, 211, 211, 0.7);
+    /* 0.7 es el nivel de opacidad, puedes ajustarlo según tus preferencias */
+}

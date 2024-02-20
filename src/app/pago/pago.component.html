@@ -1,0 +1,30 @@
+<form>
+    <p>
+        <label for="tipo_documento">Tipo de documento: </label>
+        <select name="tipo_documento" id="tipo_documento" required>
+            <option value="">Selecciona una opción</option>
+            <option value="cedula">Cédula</option>
+            <option value="pasaporte">Pasaporte</option>
+        </select>
+        <input type="text" placeholder="Documento" name="nombre" id="nombre" required>
+    </p>
+    <p>
+        <label for="nombre">Nombre: </label>
+        <input type="text" placeholder="Nombre completo" name="nombre" id="nombre" required>
+    </p>
+    <p>
+        <label for="apellido">Apellido: </label>
+        <input type="text" placeholder="Apellido completo" name="apellido" id="apellido" required>
+    </p>
+    <p>
+        <label for="correo_electronico">Correo electrónico: </label>
+        <input type="email" placeholder="Correo Electronico" name="correo_electronico" id="correo_electronico" required>
+    </p>
+    <p>
+        <label for="numero_telefono">Número de teléfono: </label>
+        <input type="tel" placeholder="Numero de telefono" name="numero_telefono" id="numero_telefono" required>
+    </p>
+    <p>
+        <input type="submit" value="Pagar con PayPal">
+    </p>
+</form>

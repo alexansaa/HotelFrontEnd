@@ -1,0 +1,16 @@
+<div>
+  <!-- <app-header *ngIf="dynamicHeaderData; else customHeader" [headerData]="customContent"></app-header> -->
+  <ng-container *ngIf="dynamicHeaderData; else customHeader">
+    <app-header [headerData]="customContent"></app-header>
+
+  </ng-container>
+
+  <ng-template #customHeader>
+    <app-header [dynamicContent]="dynamicHeaderData"></app-header>
+  </ng-template>
+  <br>
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,57 @@
+table tr td {
+    color: black;
+}
+
+@media only screen and (max-width: 768px) {
+    .check-in-out-container {
+        flex-direction: column;
+    }
+}
+
+
+.carousel-container {
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-inner {
+    display: flex;
+    width: inherit;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes carousel-animation {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.carousel-item {
+    animation: carousel-animation 15s linear infinite;
+}
+.people-habitations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.borders {
+    border: 1px solid #000000;
+    padding: 5px; /* Optional styling for space within borders */
+}
+
+.borders img { /* Optional to remove borders around images if needed */
+    border: none;
+}
+.inner-table{
+    width: 100%;
+}

@@ -1,0 +1,36 @@
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .texto-imagen {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .texto {
+    flex: 1 1 auto;
+    padding: 20px;
+  }
+  
+  .titulo {
+    color: green;
+  }
+  
+  .imagen {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .imagen img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .texto-imagen {
+      flex-direction: column;
+    }
+  }
+  

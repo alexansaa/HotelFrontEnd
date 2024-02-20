@@ -1,0 +1,31 @@
+<tr class="borders fullwidth">
+    <th>Nombre</th>
+    <th>Capacidad</th>
+    <th>Imagen</th>
+    <th>Precio</th>
+</tr>
+<td class="borders">
+    {{ room.room_type }}
+</td>
+<td class="borders">
+    Capacidad de personas: {{ room.people_capacity }} <br> <br>
+    Numero de camas: {{ room.qty_beds }}
+</td>
+<td class="borders">
+    <div class="carousel-container">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="{{ room.images[0] }}" alt="Imagen habitacion" width="275" height="200">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ room.images[1] }}" alt="Imagen habitacion" width="275" height="200">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ room.images[0] }}" alt="Imagen habitacion" width="275" height="200">
+            </div>
+        </div>
+    </div>
+</td>
+<td class="borders">
+    {{ room.price }}
+</td>

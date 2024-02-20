@@ -1,0 +1,13 @@
+.room-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.room-item p {
+    margin: 0 5px;
+}
+  
