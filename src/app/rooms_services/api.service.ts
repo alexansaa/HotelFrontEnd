@@ -92,5 +92,17 @@ export class ApiService {
 
     return this.http.put<Reservation>(apiUrl, reservation, options);
   }
+
+  reservationSearch(reservation: Reservation): Observable<Reservation> {
+    const apiUrl = 'http://127.0.0.1:5000/user/bookings/${reservation._id}';
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.put<Reservation>(apiUrl, reservation, options);
+  }
   
 }
