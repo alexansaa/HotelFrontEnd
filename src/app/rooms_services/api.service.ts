@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Reservation, Room, RoomCombination, SearchRoomData } from '../models/MyData';
+import { Reservation, Room, RoomCombination, SearchReservation, SearchRoomData } from '../models/MyData';
 
 @Injectable({
   providedIn: 'root' // Adjust provider as needed
@@ -23,7 +23,7 @@ export class ApiService {
     num_rooms: number
   }): Observable<RoomCombination[]> {
     const apiUrl = 'http://127.0.0.1:5000/find-rooms';
-  
+
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -93,16 +93,18 @@ export class ApiService {
     return this.http.put<Reservation>(apiUrl, reservation, options);
   }
 
-  reservationSearch(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'http://127.0.0.1:5000/user/bookings/${reservation._id}';
+  reservationSearch(reservationId: string): Observable<Reservation> {
+    const apiUrl = 'http://localhost:5000/user/bookings/${reservation._id}';
 
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json' // This header might not be necessary for GET requests
       })
     };
 
-    return this.http.put<Reservation>(apiUrl, reservation, options);
+    // Change PUT to GET
+    return this.http.get<Reservation>(apiUrl, options);
   }
-  
+
+
 }

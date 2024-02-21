@@ -11,18 +11,20 @@
                             [(ngModel)]="reservationData._id" disabled>
                     </mat-form-field>
                 </div>
-        
+
                 <div>
                     <label for="userId">User Id</label>
                     <mat-form-field>
-                        <input matInput type="text" id="userId" name="userId" required [(ngModel)]="reservationData.user_id" disabled>
+                        <input matInput type="text" id="userId" name="userId" required
+                            [(ngModel)]="reservationData.user_id" disabled>
                     </mat-form-field>
                 </div>
-        
+
                 <div>
                     <label for="checkIn">Check In</label>
                     <mat-form-field>
-                        <input matInput type="text" id="checkIn" name="checkIn" required [(ngModel)]="reservationData.checkin_date">
+                        <input matInput type="text" id="checkIn" name="checkIn" required
+                            [(ngModel)]="reservationData.checkin_date">
                     </mat-form-field>
                 </div>
             </div>
@@ -34,7 +36,7 @@
                             [(ngModel)]="reservationData.checkout_date">
                     </mat-form-field>
                 </div>
-        
+
                 <div class="popup_label_field">
                     <label for="qty_guests">Guests Quantity</label>
                     <mat-form-field>
@@ -42,16 +44,17 @@
                             [(ngModel)]="reservationData.qty_guests">
                     </mat-form-field>
                 </div>
-        
+
                 <div class="popup_label_field">
                     <label for="rooms">Rooms Numbers</label>
                     <mat-form-field>
-                        <input matInput type="text" id="rooms" name="rooms" required [(ngModel)]="reservationData.rooms">
+                        <input matInput type="text" id="rooms" name="rooms" required
+                            [(ngModel)]="reservationData.rooms">
                     </mat-form-field>
                 </div>
             </div>
         </div>
-        
+
         <div class="popup_label_field">
             <label for="total">Total</label>
             <mat-form-field>

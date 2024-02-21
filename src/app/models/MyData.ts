@@ -5,6 +5,10 @@ export interface SearchRoomData {
     num_rooms: number;
 }
 
+export interface SearchReservation{
+    _id: string;
+}
+
 export interface RoomCombination {
     total_capacity: any;
     excess_capacity: any;

@@ -1,7 +1,12 @@
-<div class="reservation-search">
-  <mat-form-field appearance="fill">
-    <mat-label>Reservation ID</mat-label>
-    <input matInput [(ngModel)]="reservation._id" placeholder="Enter reservation ID">
+<div class="consult-container">
+  <h3>Consulta de Reserva</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>ID de Reserva</mat-label>
+    <input matInput type="text" [(ngModel)]="reservationId">
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="search()">Search</button>
+  <button mat-raised-button color="primary" (click)="search()">Consultar</button>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
 </div>
