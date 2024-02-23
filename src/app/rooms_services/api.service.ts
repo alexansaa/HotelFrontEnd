@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Reservation, Room, RoomCombination, SearchReservation, SearchRoomData } from '../models/MyData';
+import { Reservation, Room, RoomCombination, SearchRoomData } from '../models/MyData';
 
 @Injectable({
   providedIn: 'root' // Adjust provider as needed
@@ -22,7 +22,7 @@ export class ApiService {
     end_date: Date,
     num_rooms: number
   }): Observable<RoomCombination[]> {
-    const apiUrl = 'http://127.0.0.1:5000/find-rooms';
+    const apiUrl = 'http://localhost:5000/find-rooms';
 
     const options = {
       headers: new HttpHeaders({
@@ -34,7 +34,7 @@ export class ApiService {
   }
 
   allBookings(): Observable<Reservation[]> {
-    const apiUrl = 'http://127.0.0.1:5000/admin/bookings';
+    const apiUrl = 'http://localhost:5000/admin/bookings';
 
     const options = {
       headers: new HttpHeaders({
@@ -94,7 +94,7 @@ export class ApiService {
   }
 
   reservationSearch(reservationId: string): Observable<Reservation> {
-    const apiUrl = 'http://localhost:5000/user/bookings/${reservation._id}';
+    const apiUrl = 'http://localhost:5000/user/bookings/' + reservationId;
 
     const options = {
       headers: new HttpHeaders({
