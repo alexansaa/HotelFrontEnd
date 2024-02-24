@@ -2,9 +2,9 @@
     <div class="check-in-out-container">
         <div class="check-in-out">
             <h3>Check In</h3>
-            <input type="date" id="check-in-date" [min]="minDate">
+            <input type="date" id="check-in-date" [min]="minDate" #checkInDate (change)="CheckIn($event)">
             <h3>Check Out</h3>
-            <input type="date" id="check-out-date" [min]="minDate">
+            <input type="date" id="check-out-date" [min]="minDate" #checkOutDate (change)="CheckOut($event)">
         </div>
 
         <div class="people-habitations">
@@ -26,7 +26,9 @@
     <br>
 
     <div>
-        <button class="buscar-habitaciones" (click)="buscarHabitaciones()">Buscar habitaciones</button>
+        <button class="buscar-habitaciones" (click)="buscarHabitaciones()">
+            Buscar habitaciones
+        </button>
     </div>
 
     <div *ngIf="response && response.length > 0">
@@ -55,7 +57,6 @@
 
                     <button class="seleccionar-habitaciones"
                         (click)="selectRoom(response[i], costoCombinacion(responseData));" [routerLink]="['/pago']">
-                        <!-- <a [routerLink]="['/pago']">Seleccionar</a> -->
                         Seleccionar
                     </button>
                 </td>

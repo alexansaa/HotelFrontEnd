@@ -28,6 +28,8 @@ export class SearchComponent {
   totalCost: number = 0; // Store the calculated cost
   minDate = new Date().toISOString().slice(0, 10); // Today's date in "YYYY-MM-DD"
 
+    isButtonDisabled = false; // Flag to control button state
+
   constructor(
     private apiService: ApiService
   ) { }
@@ -39,6 +41,8 @@ export class SearchComponent {
   CheckOut(event: any) {
     this.endDate = event.target.value;
   }
+
+  
 
   path: string = "../assets/images/selva.jpg";
   alttext: string = "selva image";
@@ -72,6 +76,13 @@ export class SearchComponent {
 
 
   buscarHabitaciones() {
+
+    if (this.startDate === null || this.endDate === null || this.endDate <= this.startDate) {
+      // Handle invalid date selection gracefully (e.g., display error message)
+      console.log('Fecha vacia o invalida');
+      alert('Fecha vacia o invalida');
+      return;
+    }
     const datosBusqueda = {
       num_people: this.numeroPersonas,
       start_date: this.startDate,
