@@ -52,3 +52,13 @@ input[type="submit"] {
     /* Redondeamos las esquinas */
     border-radius: 5px;
 }
+button.seleccionar-habitaciones {
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 150px;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(226, 231, 157);
+    border-radius: 10px; /* Redondea las cuatro esquinas del botón */
+}
