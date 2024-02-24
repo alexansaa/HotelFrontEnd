@@ -1,6 +1,13 @@
+<div class="button-container">
+    <button (click)="changeDisplay('disponibility')">Disponibility</button>
+    <button (click)="changeDisplay('reservation')">Reservation</button>
+    <!-- <button>Button 3</button> -->
+</div>
+
 <div [ngSwitch]="showDisplay">
-    <p *ngSwitchCase="'reservation'">This content will be shown when myVariable is 'value1'.</p>
-    <p *ngSwitchCase="'disponibility'">This content will be shown when myVariable is 'value2'.</p>
+    <app-reservation-status *ngSwitchCase="'disponibility'"></app-reservation-status>
+    <app-reservation-update *ngSwitchCase="'reservation'"></app-reservation-update>
+
     <p *ngSwitchDefault>Default content shown when myVariable doesn't match any case.</p>
 </div>
 

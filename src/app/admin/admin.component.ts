@@ -7,6 +7,8 @@ import { RoomsComponent } from '../rooms/rooms.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/pop-up-update-reservation.component';
 import { FormsModule } from '@angular/forms';
+import { ReservationStatusComponent } from '../reservation-status/reservation-status.component';
+import { ReservationUpdateComponent } from '../reservation-update/reservation-update.component';
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +19,9 @@ import { FormsModule } from '@angular/forms';
     NgSwitch,
     RoomsComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReservationStatusComponent,
+    ReservationUpdateComponent
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
@@ -58,6 +62,10 @@ export class AdminComponent implements OnInit {
         console.error('Error fetching data: ', error);
       }
     });
+  }
+
+  changeDisplay(value: string) {
+    this.showDisplay = value;
   }
 
   // deleteRoom(id: string): void {
