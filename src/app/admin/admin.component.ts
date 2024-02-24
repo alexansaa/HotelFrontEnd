@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../rooms_services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Reservation } from '../models/MyData';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf, NgSwitch } from '@angular/common';
 import { RoomsComponent } from '../rooms/rooms.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/pop-up-update-reservation.component';
@@ -14,14 +14,17 @@ import { FormsModule } from '@angular/forms';
   imports: [
     NgFor,
     NgIf,
+    NgSwitch,
     RoomsComponent,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit {
   reservations: Reservation[] = [];
+  showDisplay: string = 'reservation';
 
   constructor(
     private apiService: ApiService,
@@ -34,6 +37,7 @@ export class AdminComponent implements OnInit {
 
   openPopUp(reservation: Reservation): void {
     console.log(reservation);
+    reservation.admin = true;
     const dialogRef = this.updateReservatinoPopUp.open(PopUpUpdateReservationComponent,{
       data: reservation
     });

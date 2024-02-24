@@ -1,3 +1,9 @@
+<div [ngSwitch]="showDisplay">
+    <p *ngSwitchCase="'reservation'">This content will be shown when myVariable is 'value1'.</p>
+    <p *ngSwitchCase="'disponibility'">This content will be shown when myVariable is 'value2'.</p>
+    <p *ngSwitchDefault>Default content shown when myVariable doesn't match any case.</p>
+</div>
+
 <table border="1" class="table-style">
     <tr>
         <th>Reservaciones</th>

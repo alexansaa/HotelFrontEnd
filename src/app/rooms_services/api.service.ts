@@ -46,7 +46,7 @@ export class ApiService {
   }
 
   deleteRoom(id: string): Observable<void> {
-    const apiUrl = 'http://127.0.0.1:5000/rooms/${id}';
+    const apiUrl = 'http://localhost:5000/rooms/${id}';
 
     const options = {
       headers: new HttpHeaders({
@@ -58,7 +58,7 @@ export class ApiService {
   }
 
   selectRoom(id: string): Observable<Room> {
-    const apiUrl = 'http://127.0.0.1:5000/rooms/${id}';
+    const apiUrl = 'http://localhost:5000/rooms/${id}';
 
     const options = {
       headers: new HttpHeaders({
@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   updateRoom(room: Room): Observable<Room> {
-    const apiUrl = 'http://127.0.0.1:5000/rooms/${room._id}';
+    const apiUrl = 'http://localhost:5000/rooms/${room._id}';
 
     const options = {
       headers: new HttpHeaders({
@@ -82,7 +82,7 @@ export class ApiService {
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'http://127.0.0.1:5000/admin/booking/${reservation._id}';
+    const apiUrl = 'http://localhost:5000/admin/booking/' + reservation._id;
 
     const options = {
       headers: new HttpHeaders({
