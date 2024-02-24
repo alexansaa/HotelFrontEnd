@@ -3,6 +3,8 @@ import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal'
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 interface OrderData {
     orderId: string;
@@ -16,12 +18,12 @@ interface OrderData {
     templateUrl: './pago.component.html',
     styleUrls: ['./pago.component.css']
 })
+
 export class PagoComponent implements OnInit {
 
     public payPalConfig?: IPayPalConfig;
 
-    constructor(private router: Router) { }
-
+    constructor(private router: Router, private http: HttpClient) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
         this.initConfig();
@@ -65,19 +67,28 @@ export class PagoComponent implements OnInit {
             },
             onApprove: (data, actions) => {
                 console.log('onApprove - transaction was approved, but not authorized', data, actions);
-                //de aqui redirigeme al componente /home
-                // Redirect to the /home page after successful payment approval
-                this.router.navigate(['/']);
-
-
-
+                // Aquí puedes manejar la aprobación antes de la autorización si es necesario
             },
             onClientAuthorization: (data) => {
-                console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+                console.log('onClientAuthorization - transacción completada', data);
+                const emailData = {
+                    recipient: "gtmstev@gmail.com",
+                    body: "Tu pago ha sido procesado correctamente." + costoRecuperado,
+                    subject: "Confirmación de Pago"
+                };
+                this.http.post('http://localhost:5000/send_email', emailData).subscribe({
+                    next: (response) => {
+                        console.log('Correo de confirmación enviado', response);
+                        this.router.navigate(['/']);
+                    },
+                    error: (error) => {
+                        console.error('Error al enviar el correo de confirmación', error);
+                    }
+                });
+                
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);
-
             },
             onError: err => {
                 console.log('OnError', err);
@@ -85,9 +96,7 @@ export class PagoComponent implements OnInit {
             onClick: (data, actions) => {
                 console.log('onClick', data, actions);
             }
-        };
-    }
-
+        };
+    }
 }
-
 
