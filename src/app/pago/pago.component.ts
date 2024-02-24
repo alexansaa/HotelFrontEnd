@@ -20,7 +20,7 @@ export class PagoComponent implements OnInit{
 
   public payPalConfig ? : IPayPalConfig;
   
-  constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
 
     ngOnInit(): void {
@@ -64,15 +64,17 @@ export class PagoComponent implements OnInit{
             },
             onApprove: (data, actions) => {
                 console.log('onApprove - transaction was approved, but not authorized', data, actions);
-                //de aqui redirigeme al componente /home
-                // Redirect to the /home page after successful payment approval
-                this.router.navigate(['/']);
+                
+
+
 
 
 
             },
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+                // Redirect to the /home page after successful payment approval
+                this.router.navigate(['/']);
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);
