@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest  } from 'ngx-paypal';
+import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface OrderData {
-  orderId: string;
-  // ... Otros campos de tu orden
+    orderId: string;
+    // ... Otros campos de tu orden
 }
 
 @Component({
-  selector: 'app-pago',
-  standalone: true,
-  imports: [NgxPayPalModule, RouterModule],
-  templateUrl: './pago.component.html',
-  styleUrls: ['./pago.component.css']
+    selector: 'app-pago',
+    standalone: true,
+    imports: [NgxPayPalModule, RouterModule],
+    templateUrl: './pago.component.html',
+    styleUrls: ['./pago.component.css']
 })
-export class PagoComponent implements OnInit{
+export class PagoComponent implements OnInit {
 
-  public payPalConfig ? : IPayPalConfig;
-  
-  constructor(private router: Router) { }
+    public payPalConfig?: IPayPalConfig;
+
+    constructor(private router: Router) { }
 
 
     ngOnInit(): void {
@@ -28,19 +28,20 @@ export class PagoComponent implements OnInit{
     }
 
     private initConfig(): void {
+        const costoRecuperado = localStorage.getItem('costoCombinacion');
         this.payPalConfig = {
             currency: 'USD',
             clientId: 'ASDlG6RI5mkZWEgxorLCeLUC0o9mDCX-rT8wWr99HplGw1yHDpEKmavutkGP8cm5c7bODWUbHcB01nDa',
-            createOrderOnClient: (data) => < ICreateOrderRequest > {
+            createOrderOnClient: (data) => <ICreateOrderRequest>{
                 intent: 'CAPTURE',
                 purchase_units: [{
                     amount: {
                         currency_code: 'USD',
-                        value: '0.99',
+                        value: costoRecuperado,
                         breakdown: {
                             item_total: {
                                 currency_code: 'USD',
-                                value: '0.99'
+                                value: costoRecuperado
                             }
                         }
                     },
@@ -50,7 +51,7 @@ export class PagoComponent implements OnInit{
                         category: 'DIGITAL_GOODS',
                         unit_amount: {
                             currency_code: 'USD',
-                            value: '0.99',
+                            value: costoRecuperado,
                         },
                     }]
                 }]
