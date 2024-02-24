@@ -5,7 +5,7 @@ import { ApiService } from '../rooms_services/api.service';
 import { Room, RoomCombination, SearchRoomData } from '../models/MyData';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {  RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,7 @@ import {  RouterModule } from '@angular/router';
     NgIf,
     MatTooltipModule,
     RouterModule
-    ],
+  ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
@@ -98,18 +98,23 @@ export class SearchComponent {
   }
   costoCombinacion(roomsCombination: RoomCombination): number {
     const roomsprice = roomsCombination.rooms.map(room => room.price); // Efficient price extraction
-    return roomsprice.reduce((total, price) => total + price, 0); // Calculate total cost
+    var roomspriceFinal = roomsprice.reduce((total, price) => total + price, 0); // Calculate total cost
+    return roomspriceFinal;
   }
 
 
-  selectRoom(roomsCombination: RoomCombination): void {
+  selectRoom(roomsCombination: RoomCombination, Costo: any): void {
     console.log("Enviando datos de habitacion seleccionada", roomsCombination);
 
     let roomsIds = [];
     for (let i = 0; i < roomsCombination.rooms.length; i++) {
       roomsIds.push(roomsCombination.rooms[i]._id);
     }
+    var romspriceFinal = Costo
+    const costoString = JSON.stringify(romspriceFinal);
+    localStorage.setItem('costoCombinacion', costoString);
 
     console.log(roomsIds);
+    console.log(costoString);
   }
 }

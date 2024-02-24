@@ -53,13 +53,7 @@
                         }}</span>
                     <br><br>
 
-                    <!--
-                        <button class="seleccionar-habitaciones" (click)="selectRoom(response[i]);"
-                        routerLinkActive="active" routerLink="home">
-                        Seleccionar
-                    </button>
-                    -->
-                    <button class="seleccionar-habitaciones" (click)="selectRoom(response[i]);">
+                    <button class="seleccionar-habitaciones" (click)="selectRoom(response[i], costoCombinacion(responseData));">
                         <a [routerLink]="['/pago']">Seleccionar</a>
                     </button>
                 </td>
