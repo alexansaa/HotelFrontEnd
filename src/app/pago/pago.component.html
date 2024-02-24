@@ -24,7 +24,11 @@
         <label for="numero_telefono">Número de teléfono: </label>
         <input type="tel" placeholder="Numero de telefono" name="numero_telefono" id="numero_telefono" required>
     </p>
-    <p>
-        <input type="submit" value="Pagar con PayPal">
-    </p>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+    <br>
+    <br>
 </form>
+
+<br>
+<br>
