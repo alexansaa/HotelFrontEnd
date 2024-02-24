@@ -28,7 +28,8 @@ export class SearchComponent {
   totalCost: number = 0; // Store the calculated cost
   minDate = new Date().toISOString().slice(0, 10); // Today's date in "YYYY-MM-DD"
 
-    isButtonDisabled = false; // Flag to control button state
+  isButtonDisabled = false; // Flag to control button state
+  fechas: any;
 
   constructor(
     private apiService: ApiService
@@ -42,7 +43,7 @@ export class SearchComponent {
     this.endDate = event.target.value;
   }
 
-  
+
 
   path: string = "../assets/images/selva.jpg";
   alttext: string = "selva image";
@@ -83,6 +84,7 @@ export class SearchComponent {
       alert('Fecha vacia o invalida');
       return;
     }
+
     const datosBusqueda = {
       num_people: this.numeroPersonas,
       start_date: this.startDate,
@@ -91,6 +93,12 @@ export class SearchComponent {
     };
 
     console.log(datosBusqueda);
+
+    var fechas = datosBusqueda
+    const fechasF = JSON.stringify(fechas);
+    localStorage.setItem('costoCombinacion', fechasF);
+
+    console.log(fechasF)
 
     this.apiService.searchRoomsCombinations(datosBusqueda).subscribe({
       next: (response: RoomCombination[]) => {
@@ -124,6 +132,12 @@ export class SearchComponent {
     var romspriceFinal = Costo
     const costoString = JSON.stringify(romspriceFinal);
     localStorage.setItem('costoCombinacion', costoString);
+
+    var combinacion = roomsCombination
+    const combinacionHabitaciones = JSON.stringify(combinacion);
+    localStorage.setItem('costoCombinacion', combinacionHabitaciones);
+
+    console.log(combinacionHabitaciones)
 
     console.log(roomsIds);
     console.log(costoString);
