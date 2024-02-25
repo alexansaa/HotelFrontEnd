@@ -11,6 +11,15 @@ interface OrderData {
     // ... Otros campos de tu orden
 }
 
+
+interface Room {
+    _id: number;
+    description: string;
+    price: number;
+    qty_beds: number;
+    room_type: string;
+  }
+
 @Component({
     selector: 'app-pago',
     standalone: true,
@@ -23,13 +32,41 @@ export class PagoComponent implements OnInit {
 
     public payPalConfig?: IPayPalConfig;
 
+    // Variables para almacenar los datos recuperados
+    checkinDate: string = '';
+    checkoutDate: string = '';
+    roomId: number = 0;
+    roomType: string = '';
+    individualPrice: number = 0;
+    numberOfBeds: number = 0;
+    totalPeople: number = 0;
+
     constructor(private router: Router, private http: HttpClient) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
         this.initConfig();
+        this.recuperarDatos();
+    }
+
+    private recuperarDatos(): void {
+        
     }
 
     private initConfig(): void {
+        const combinacionString = localStorage.getItem('combinacion');
+        console.log('combinacionString', combinacionString);
+
+        // const combinacion: any = JSON.parse(combinacionString);
+
+
+        // // Recuperar fechas de check-in y check-out
+        // this.checkinDate = combinacion.checkin_date;
+        // this.checkoutDate = combinacion.checkout_date;
+
+        // // Sumar la cantidad de habitaciones
+        // const totalRooms: number = combinacion.rooms.length;
+
+        // Calcular el precio final
         const costoRecuperado = localStorage.getItem('costoCombinacion');
         this.payPalConfig = {
             currency: 'USD',
@@ -72,7 +109,7 @@ export class PagoComponent implements OnInit {
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization - transacción completada', data);
                 const emailData = {
-                    recipient: "gtmstev@gmail.com",
+                    recipient: "pablodarcos.723@gmail.com",
                     body: "Tu pago ha sido procesado correctamente." + costoRecuperado,
                     subject: "Confirmación de Pago"
                 };
