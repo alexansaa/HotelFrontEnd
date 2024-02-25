@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConsultComponent } from './consult/consult.component';
+import { PrepagoComponent } from './prepago/prepago.component';
 
 
 @Component({
@@ -37,7 +38,8 @@ import { ConsultComponent } from './consult/consult.component';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    ConsultComponent
+    ConsultComponent,
+    PrepagoComponent
   ],
 
   templateUrl: './app.component.html',

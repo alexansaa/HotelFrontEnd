@@ -1,0 +1,40 @@
+<form (ngSubmit)="submitForm()" #form="ngForm">
+    <p>
+        <label for="tipo_documento">Tipo de documento: </label>
+        <select name="tipo_documento" id="tipo_documento" required [(ngModel)]="tipoDocumento" name="tipo_documento">
+            <option value="">Selecciona una opción</option>
+            <option value="cedula">Cédula</option>
+            <option value="pasaporte">Pasaporte</option>
+        </select>
+        <input type="text" placeholder="Documento" name="documento" [(ngModel)]="documento" required>
+    </p>
+    <p>
+        <label for="nombre">Nombre: </label>
+        <input type="text" placeholder="Nombre completo" name="nombre" [(ngModel)]="nombre" required>
+    </p>
+    <p>
+        <label for="apellido">Apellido: </label>
+        <input type="text" placeholder="Apellido completo" name="apellido" [(ngModel)]="apellido" required>
+    </p>
+    <p>
+        <label for="correo_electronico">Correo electrónico: </label>
+        <input type="email" placeholder="Correo Electronico" name="correo_electronico" [(ngModel)]="correoElectronico" required>
+    </p>
+    <p>
+        <label for="numero_telefono">Número de teléfono: </label>
+        <input type="tel" placeholder="Numero de telefono" name="numero_telefono" [(ngModel)]="numeroTelefono" required>
+    </p>
+
+    <p>
+        <label for="fechaNacimiento">Fecha de Nacimiento: </label>
+        <input type="date" placeholder="Fecha de Nacimiento" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
+    </p>
+
+    <button type="submit" class="proceder-pago" [disabled]="!form.valid">
+        Proceder al pago
+    </button>
+</form>
+
+<button class="seleccionar-habitaciones" [routerLink]="['/search']">
+    Regresar
+</button>

@@ -1,0 +1,75 @@
+/* Añadimos un estilo al elemento `form` */
+form {
+    /* Lo convertimos en un bloque a nivel de bloque */
+    display: block;
+    /* Establecemos un ancho y alto fijo */
+    width: 400px;
+    height: 475px;
+    /* Centramos el contenido en horizontal y vertical */
+    margin: 0 auto;
+    /* Añadimos un borde */
+    border: 1px solid #ccc;
+    /* Redondeamos las esquinas */
+    border-radius: 5px;
+    /* Añadimos un poco de relleno */
+    padding: 20px;
+}
+
+/* Añadimos un estilo al elemento `h1` */
+h1 {
+    /* Centramos el texto */
+    text-align: center;
+}
+
+/* Añadimos un estilo a los elementos `p` */
+p {
+    /* Añadimos un margen inferior para separar los elementos */
+    margin-bottom: 10px;
+}
+
+/* Añadimos un estilo a los elementos `input` */
+input {
+    /* Establecemos un ancho fijo */
+    width: 100%;
+    /* Añadimos un borde */
+    border: 1px solid #ccc;
+    /* Redondeamos las esquinas */
+    border-radius: 3px;
+    /* Añadimos un poco de relleno */
+    padding: 5px;
+}
+
+/* Añadimos un estilo al elemento `input[type="submit"]` */
+input[type="submit"] {
+    /* Cambiamos el tipo de cursor */
+    cursor: pointer;
+    /* Añadimos un color de fondo */
+    background-color: #0073b7;
+    /* Cambiamos el color del texto */
+    color: #fff;
+    /* Añadimos un borde */
+    border: none;
+    /* Redondeamos las esquinas */
+    border-radius: 5px;
+}
+button.seleccionar-habitaciones {
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 150px;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(226, 231, 157);
+    border-radius: 10px; /* Redondea las cuatro esquinas del botón */
+}
+button.proceder-pago {
+    font-size: 20px;
+    padding: 10px 20px;
+    width: 100%;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(120, 149, 122);
+    color: white;
+    border-radius: 10px; /* Redondea las cuatro esquinas del botón */
+}

@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { PagoComponent } from './pago/pago.component';
 import { ConsultComponent } from './consult/consult.component';
+import { PrepagoComponent } from './prepago/prepago.component';
 
 const routeConfig: Routes = [
   {
@@ -78,6 +79,12 @@ const routeConfig: Routes = [
     component: ConsultComponent,
     title: 'Consultar Reserva',
     data: { title: 'Consultar Reserva', description: 'En esta pestaña podrás consultar su reserva.' }
+  },
+  {
+    path: 'prepago',
+    component: PrepagoComponent,
+    title: 'Datos del Cliente',
+    data: { title: 'Prepago', description: 'En esta pestaña ingrese sus datos para la reserva.' }
   }
 ];
 
