@@ -5,7 +5,7 @@ import { ApiService } from '../rooms_services/api.service';
 import { Room, RoomCombination, SearchRoomData } from '../models/MyData';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {  RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,7 @@ import {  RouterModule } from '@angular/router';
     NgIf,
     MatTooltipModule,
     RouterModule
-    ],
+  ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
@@ -27,6 +27,9 @@ export class SearchComponent {
   // rooms: Room[] = [];
   totalCost: number = 0; // Store the calculated cost
   minDate = new Date().toISOString().slice(0, 10); // Today's date in "YYYY-MM-DD"
+
+  isButtonDisabled = false; // Flag to control button state
+  fechas: any;
 
   constructor(
     private apiService: ApiService
@@ -39,6 +42,8 @@ export class SearchComponent {
   CheckOut(event: any) {
     this.endDate = event.target.value;
   }
+
+
 
   path: string = "../assets/images/selva.jpg";
   alttext: string = "selva image";
@@ -72,6 +77,14 @@ export class SearchComponent {
 
 
   buscarHabitaciones() {
+
+    if (this.startDate === null || this.endDate === null || this.endDate <= this.startDate) {
+      // Handle invalid date selection gracefully (e.g., display error message)
+      console.log('Fecha vacia o invalida');
+      alert('Fecha vacia o invalida');
+      return;
+    }
+
     const datosBusqueda = {
       num_people: this.numeroPersonas,
       start_date: this.startDate,
@@ -80,6 +93,12 @@ export class SearchComponent {
     };
 
     console.log(datosBusqueda);
+
+    var fechas = datosBusqueda
+    const fechasF = JSON.stringify(fechas);
+    localStorage.setItem('costoCombinacion', fechasF);
+
+    console.log(fechasF)
 
     this.apiService.searchRoomsCombinations(datosBusqueda).subscribe({
       next: (response: RoomCombination[]) => {
@@ -97,19 +116,33 @@ export class SearchComponent {
     });
   }
   costoCombinacion(roomsCombination: RoomCombination): number {
-    const roomsprice = roomsCombination.rooms.map(room => room.price); // Efficient price extraction
-    return roomsprice.reduce((total, price) => total + price, 0); // Calculate total cost
+    const roomsprice = roomsCombination.rooms.map(room => room.price); // Obtener precios de las habitaciones
+    const checkinDate = new Date(this.startDate); // Fecha de check-in
+    const checkoutDate = new Date(this.endDate); // Fecha de check-out
+    const numberOfDays = (checkoutDate.getTime() - checkinDate.getTime()) / (1000 * 3600 * 24); // Número de días de estadía
+    const roomspriceFinal = roomsprice.reduce((total, price) => total + price * numberOfDays, 0); // Calcular el costo total multiplicando por el número de días
+    return parseFloat(roomspriceFinal.toFixed(2));
   }
 
 
-  selectRoom(roomsCombination: RoomCombination): void {
+  selectRoom(roomsCombination: RoomCombination, Costo: any): void {
     console.log("Enviando datos de habitacion seleccionada", roomsCombination);
 
     let roomsIds = [];
     for (let i = 0; i < roomsCombination.rooms.length; i++) {
       roomsIds.push(roomsCombination.rooms[i]._id);
     }
+    var romspriceFinal = Costo
+    const costoString = JSON.stringify(romspriceFinal);
+    localStorage.setItem('costoCombinacion', costoString);
+
+    var combinacion = roomsCombination
+    const combinacionHabitaciones = JSON.stringify(combinacion);
+    localStorage.setItem('combinacion', combinacionHabitaciones);
+
+    console.log(combinacionHabitaciones)
 
     console.log(roomsIds);
+    console.log(costoString);
   }
 }
