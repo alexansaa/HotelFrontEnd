@@ -96,7 +96,7 @@ export class SearchComponent {
 
     var fechas = datosBusqueda
     const fechasF = JSON.stringify(fechas);
-    localStorage.setItem('costoCombinacion', fechasF);
+    localStorage.setItem('fechas', fechasF);
 
     console.log(fechasF)
 

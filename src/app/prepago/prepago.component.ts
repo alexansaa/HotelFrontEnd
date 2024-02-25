@@ -55,8 +55,8 @@ export class PrepagoComponent implements OnInit {
     this.router.navigate(['/pago']);
 
     const datosUsuario = {
-      type_id: this.tipoDocumento,
-      gov_id: this.documento,
+      _id: this.documento,
+      type_id: this.tipoDocumento,      
       name: this.nombre,
       lastname: this.apellido,
       email: this.correoElectronico,

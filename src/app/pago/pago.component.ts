@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -23,34 +23,50 @@ interface Room {
 @Component({
     selector: 'app-pago',
     standalone: true,
-    imports: [NgxPayPalModule, RouterModule],
+    imports: [NgxPayPalModule, RouterModule, NgFor],
     templateUrl: './pago.component.html',
     styleUrls: ['./pago.component.css']
 })
 
 export class PagoComponent implements OnInit {
 
+    combinacion: any;
+    fechas: any;
+    costoCombinacion: any;
+
     public payPalConfig?: IPayPalConfig;
 
     // Variables para almacenar los datos recuperados
-    checkinDate: string = '';
-    checkoutDate: string = '';
-    roomId: number = 0;
-    roomType: string = '';
-    individualPrice: number = 0;
-    numberOfBeds: number = 0;
-    totalPeople: number = 0;
+    // checkinDate: string = '';
+    // checkoutDate: string = '';
+    // roomId: number = 0;
+    // roomType: string = '';
+    // individualPrice: number = 0;
+    // numberOfBeds: number = 0;
+    // totalPeople: number = 0;
 
     constructor(private router: Router, private http: HttpClient) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
+        const combinacionString = localStorage.getItem('combinacion');
+        if (combinacionString) {
+        this.combinacion = JSON.parse(combinacionString);
+        }
+
+        const fechasString = localStorage.getItem('fechas');
+        if (fechasString) {
+        this.fechas = JSON.parse(fechasString);
+        }
+
+        const costoCombinacionString = localStorage.getItem('costoCombinacion');
+        if (costoCombinacionString) {
+        this.costoCombinacion = costoCombinacionString;
+        }
+
         this.initConfig();
-        this.recuperarDatos();
     }
 
-    private recuperarDatos(): void {
-        
-    }
+ 
 
     private initConfig(): void {
         const combinacionString = localStorage.getItem('combinacion');
