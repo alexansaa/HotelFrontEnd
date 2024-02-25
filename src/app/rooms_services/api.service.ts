@@ -94,7 +94,7 @@ export class ApiService {
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'http://localhost:5000/admin/booking/' + reservation._id;
+    const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
 
     const options = {
       headers: new HttpHeaders({
