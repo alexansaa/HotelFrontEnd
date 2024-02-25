@@ -50,11 +50,6 @@ export class PagoComponent implements OnInit {
     constructor(private router: Router, private http: HttpClient, private apiService: ApiService) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
-        const combinacionString = localStorage.getItem('combinacion');
-        if (combinacionString) {
-            this.combinacion = JSON.parse(combinacionString);
-        }
-
         const fechasString = localStorage.getItem('fechas');
         if (fechasString) {
             this.fechas = JSON.parse(fechasString);
@@ -65,6 +60,18 @@ export class PagoComponent implements OnInit {
             this.costoCombinacion = costoCombinacionString;
         }
 
+        const usuario = localStorage.getItem('usuario');
+        if (usuario) {
+            this.usuario = usuario;
+        }
+
+        const combinacion = localStorage.getItem('combinacion');
+        if (combinacion) {
+            this.combinacion = JSON.parse(combinacion);
+        }
+
+        console.log(this.usuario)
+
 
         this.initConfig();
     }
@@ -73,7 +80,6 @@ export class PagoComponent implements OnInit {
 
     private initConfig(): void {
         const combinacionString = localStorage.getItem('combinacion');
-        const usuario = localStorage.getItem('usuario');
 
         const bookingData = {
             user_id: this.usuario._id,
@@ -85,17 +91,6 @@ export class PagoComponent implements OnInit {
         }
         console.log('combinacionString', combinacionString);
 
-        // const combinacion: any = JSON.parse(combinacionString);
-
-
-        // // Recuperar fechas de check-in y check-out
-        // this.checkinDate = combinacion.checkin_date;
-        // this.checkoutDate = combinacion.checkout_date;
-
-        // // Sumar la cantidad de habitaciones
-        // const totalRooms: number = combinacion.rooms.length;
-
-        // Calcular el precio final
         const costoRecuperado = localStorage.getItem('costoCombinacion');
         this.payPalConfig = {
             currency: 'USD',
