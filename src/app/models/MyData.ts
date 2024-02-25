@@ -40,12 +40,21 @@ export interface Room {
 }
 
 export interface Reservation {
+    _id: string,
+    user_id: string,
     checkin_date: Date,
     checkout_date: Date,
     qty_guests: number,
     rooms: [],
     total_price: number,
-    user_id: string,
-    _id: string,
     admin: boolean
+}
+
+export interface Booking {
+    user_id: string,
+    checkin_date: Date,
+    checkout_date: Date,
+    qty_guests: number,
+    rooms: [],
+    total_price: number,
 }

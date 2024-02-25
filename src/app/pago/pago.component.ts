@@ -3,7 +3,8 @@ import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal'
 import { NgModule } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ApiService } from '../rooms_services/api.service';
 
 
 interface OrderData {
@@ -18,7 +19,7 @@ interface Room {
     price: number;
     qty_beds: number;
     room_type: string;
-  }
+}
 
 @Component({
     selector: 'app-pago',
@@ -33,6 +34,7 @@ export class PagoComponent implements OnInit {
     combinacion: any;
     fechas: any;
     costoCombinacion: any;
+    usuario: any;
 
     public payPalConfig?: IPayPalConfig;
 
@@ -45,31 +47,42 @@ export class PagoComponent implements OnInit {
     // numberOfBeds: number = 0;
     // totalPeople: number = 0;
 
-    constructor(private router: Router, private http: HttpClient) { } // Inyecta HttpClient aquí
+    constructor(private router: Router, private http: HttpClient, private apiService: ApiService) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
         const combinacionString = localStorage.getItem('combinacion');
         if (combinacionString) {
-        this.combinacion = JSON.parse(combinacionString);
+            this.combinacion = JSON.parse(combinacionString);
         }
 
         const fechasString = localStorage.getItem('fechas');
         if (fechasString) {
-        this.fechas = JSON.parse(fechasString);
+            this.fechas = JSON.parse(fechasString);
         }
 
         const costoCombinacionString = localStorage.getItem('costoCombinacion');
         if (costoCombinacionString) {
-        this.costoCombinacion = costoCombinacionString;
+            this.costoCombinacion = costoCombinacionString;
         }
+
 
         this.initConfig();
     }
 
- 
+
 
     private initConfig(): void {
         const combinacionString = localStorage.getItem('combinacion');
+        const usuario = localStorage.getItem('usuario');
+
+        const bookingData = {
+            user_id: this.usuario._id,
+            checkin_date: this.fechas.start_date,
+            checkout_date: this.fechas.end_date,
+            qty_guests: this.combinacion.num_people,
+            rooms: this.combinacion.rooms,
+            total_price: this.costoCombinacion
+        }
         console.log('combinacionString', combinacionString);
 
         // const combinacion: any = JSON.parse(combinacionString);
@@ -125,9 +138,9 @@ export class PagoComponent implements OnInit {
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization - transacción completada', data);
                 const emailData = {
-                    recipient: "pablodarcos.723@gmail.com",
-                    body: "Tu pago ha sido procesado correctamente." + costoRecuperado,
-                    subject: "Confirmación de Pago"
+                    recipient: this.usuario.email,
+                    body: "Gracias por su reserva en Hotel Copo de Nieve.\nDetalles de su reserva:\nFecha de Checkin: " + bookingData.checkin_date + "\nFecha de Checkout: " + bookingData.checkout_date + "\nHabitaciones: " + bookingData.rooms + "\nNúmero de huéspedes: " + bookingData.qty_guests + "\nPrecio Total: " + costoRecuperado,
+                    subject: "Confirmación de Reserva Hotel Copo de Nieve"
                 };
                 this.http.post('http://localhost:5000/send_email', emailData).subscribe({
                     next: (response) => {
@@ -138,7 +151,21 @@ export class PagoComponent implements OnInit {
                         console.error('Error al enviar el correo de confirmación', error);
                     }
                 });
-                
+
+                this.apiService.reservationCreate(bookingData).subscribe({
+                    next: () => {
+                        // Handle successful response here
+                        console.log('Reserva creada correctamente:', bookingData);
+
+                    },
+                    error: (error: HttpErrorResponse) => {
+                        // Handle errors gracefully
+                        console.error('Error fetching data:', error);
+                        // Display an error message to the user
+                    }
+                });
+
+
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);
@@ -149,7 +176,7 @@ export class PagoComponent implements OnInit {
             onClick: (data, actions) => {
                 console.log('onClick', data, actions);
             }
-        };
-    }
+        };
+    }
 }
 
