@@ -1,12 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../rooms_services/api.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Reservation } from '../models/MyData';
-import { CommonModule, NgFor, NgIf, NgSwitch } from '@angular/common';
-import { RoomsComponent } from '../rooms/rooms.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/pop-up-update-reservation.component';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CommonModule, NgSwitch } from '@angular/common';
 import { ReservationStatusComponent } from '../reservation-status/reservation-status.component';
 import { ReservationUpdateComponent } from '../reservation-update/reservation-update.component';
 
@@ -14,11 +7,7 @@ import { ReservationUpdateComponent } from '../reservation-update/reservation-up
   selector: 'app-admin',
   standalone: true,
   imports: [
-    NgFor,
-    NgIf,
     NgSwitch,
-    RoomsComponent,
-    FormsModule,
     CommonModule,
     ReservationStatusComponent,
     ReservationUpdateComponent
@@ -26,95 +15,10 @@ import { ReservationUpdateComponent } from '../reservation-update/reservation-up
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
-export class AdminComponent implements OnInit {
-  reservations: Reservation[] = [];
+export class AdminComponent {
   showDisplay: string = 'reservation';
-
-  constructor(
-    private apiService: ApiService,
-    private updateReservatinoPopUp: MatDialog
-  ) {}
-
-  ngOnInit(): void {
-    this.getAllBookings();
-  }
-
-  openPopUp(reservation: Reservation): void {
-    console.log(reservation);
-    reservation.admin = true;
-    const dialogRef = this.updateReservatinoPopUp.open(PopUpUpdateReservationComponent,{
-      data: reservation
-    });
-  }
-
-  onSubmit(): void {
-    console.log('clicked');
-    
-  }
-
-  getAllBookings() {
-    this.apiService.allBookings().subscribe({
-      next: (reservations: Reservation[]) => {
-        this.reservations = reservations;
-        console.log('Received rooms from backend: ', reservations);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error fetching data: ', error);
-      }
-    });
-  }
 
   changeDisplay(value: string) {
     this.showDisplay = value;
   }
-
-  // deleteRoom(id: string): void {
-  //   this.apiService.deleteRoom(id).subscribe({
-  //     next: () => {
-  //       console.log('Room deleted! succesfully');
-  //       this.rooms = this.rooms.filter((room) => room._id !== id);
-  //     },
-  //     error: (error: HttpErrorResponse) => {
-  //       console.error('Error deleting room: ', error);
-  //     }
-  //   })
-  // }
-
-  // updateRoom(room: Room): void {
-  //   this.apiService.updateRoom(room).subscribe({
-  //     next: (updateRoom: Room) => {
-  //       console.log('Room updated succesfully');
-  //       this.rooms = this.rooms.map((r) => r._id === updateRoom._id ? updateRoom : r);
-  //     },
-  //     error: (error: HttpErrorResponse) => {
-  //       console.error('Error updating room: ', error);
-  //     }
-  //   });
-  // }
-
-  // buscarHabitaciones() {
-  //   const datosBusqueda = {
-  //     num_people: this.numeroPersonas,
-  //     start_date: this.startDate,
-  //     end_date: this.endDate,
-  //     num_rooms: this.numeroHabitaciones
-  //   };
-
-  //   console.log(datosBusqueda);
-
-  //   this.apiService.sendData(datosBusqueda).subscribe({
-  //     next: (response: SendData[]) => {
-  //       // Handle successful response here
-  //       console.log('Received data from backend:', response);
-  //       this.response = response;
-  //       // Access and process the response data (e.g., display in the UI)
-
-  //     },
-  //     error: (error: HttpErrorResponse) => {
-  //       // Handle errors gracefully
-  //       console.error('Error fetching data:', error);
-  //       // Display an error message to the user
-  //     }
-  //   });
-  // }
 }
