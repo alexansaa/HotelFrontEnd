@@ -138,7 +138,7 @@ export class SearchComponent {
 
     var combinacion = roomsCombination
     const combinacionHabitaciones = JSON.stringify(combinacion);
-    localStorage.setItem('costoCombinacion', combinacionHabitaciones);
+    localStorage.setItem('combinacion', combinacionHabitaciones);
 
     console.log(combinacionHabitaciones)
 
