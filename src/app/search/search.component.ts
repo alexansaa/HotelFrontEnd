@@ -116,9 +116,12 @@ export class SearchComponent {
     });
   }
   costoCombinacion(roomsCombination: RoomCombination): number {
-    const roomsprice = roomsCombination.rooms.map(room => room.price); // Efficient price extraction
-    var roomspriceFinal = roomsprice.reduce((total, price) => total + price, 0); // Calculate total cost
-    return roomspriceFinal;
+    const roomsprice = roomsCombination.rooms.map(room => room.price); // Obtener precios de las habitaciones
+    const checkinDate = new Date(this.startDate); // Fecha de check-in
+    const checkoutDate = new Date(this.endDate); // Fecha de check-out
+    const numberOfDays = (checkoutDate.getTime() - checkinDate.getTime()) / (1000 * 3600 * 24); // Número de días de estadía
+    const roomspriceFinal = roomsprice.reduce((total, price) => total + price * numberOfDays, 0); // Calcular el costo total multiplicando por el número de días
+    return parseFloat(roomspriceFinal.toFixed(2));
   }
 
 
