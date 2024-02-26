@@ -1,11 +1,15 @@
 <!-- <p>reservation-status works!</p> -->
-<div>
-    <h3>Check In</h3>
-    <input type="date" id="check-in-date" [min]="minDate">
-    <h3>Check Out</h3>
-    <input type="date" id="check-out-date" [min]="minDate">
+<div class="dates_disponibility">
+    <div class="dates_input">
+        <h3>Check In</h3>
+        <input type="date" id="check-in-date" [min]="minDate">
+    </div>
+    <div class="dates_input">
+        <h3>Check Out</h3>
+        <input type="date" id="check-out-date" [min]="minDate">
+    </div>
 </div>
-<table border="1" class="table-style">
+<table border="1" class="table_disponibility">
     <tr>
         <th>Habitaciones</th>
         <th>Tipo</th>

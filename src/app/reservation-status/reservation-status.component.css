@@ -1,0 +1,26 @@
+.dates_disponibility {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3%;
+}
+
+.dates_input {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.table_disponibility {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.table_disponibility th,
+.table_disponibility td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}

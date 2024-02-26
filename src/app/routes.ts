@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { PagoComponent } from './pago/pago.component';
 import { ConsultComponent } from './consult/consult.component';
+import { PrepagoComponent } from './prepago/prepago.component';
+import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
+import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
 
 const routeConfig: Routes = [
   {
@@ -50,6 +53,12 @@ const routeConfig: Routes = [
     data: { title: 'Admin Home Dynamic Title', description: 'Admin Home Dynamic Description'}
   },
   {
+    path: 'showRooms',
+    component: ShowRoomsComponent,
+    title: 'All Rooms',
+    data: { title: 'Hotel Rooms', description: 'All Rooms from the hotel'}
+  },
+  {
     path: 'rooms',
     component: RoomsComponent,
     title: 'Habitaciones',
@@ -78,6 +87,18 @@ const routeConfig: Routes = [
     component: ConsultComponent,
     title: 'Consultar Reserva',
     data: { title: 'Consultar Reserva', description: 'En esta pestaña podrás consultar su reserva.' }
+  },
+  {
+    path: 'prepago',
+    component: PrepagoComponent,
+    title: 'Datos del Cliente',
+    data: { title: 'Prepago', description: 'En esta pestaña ingrese sus datos para la reserva.' }
+  },
+  {
+    path: 'confirmacion',
+    component: ConfirmacionComponent,
+    title: 'Reserva Confirmada',
+    data: { title: 'Gracias por confiar en Hotel Copo de Nieve' }
   }
 ];
 

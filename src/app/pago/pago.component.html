@@ -1,36 +1,40 @@
-<form>
-    <p>
-        <label for="tipo_documento">Tipo de documento: </label>
-        <select name="tipo_documento" id="tipo_documento" required>
-            <option value="">Selecciona una opción</option>
-            <option value="cedula">Cédula</option>
-            <option value="pasaporte">Pasaporte</option>
-        </select>
-        <input type="text" placeholder="Documento" name="nombre" id="nombre" required>
-    </p>
-    <p>
-        <label for="nombre">Nombre: </label>
-        <input type="text" placeholder="Nombre completo" name="nombre" id="nombre" required>
-    </p>
-    <p>
-        <label for="apellido">Apellido: </label>
-        <input type="text" placeholder="Apellido completo" name="apellido" id="apellido" required>
-    </p>
-    <p>
-        <label for="correo_electronico">Correo electrónico: </label>
-        <input type="email" placeholder="Correo Electronico" name="correo_electronico" id="correo_electronico" required>
-    </p>
-    <p>
-        <label for="numero_telefono">Número de teléfono: </label>
-        <input type="tel" placeholder="Numero de telefono" name="numero_telefono" id="numero_telefono" required>
-    </p>
-    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+<table>
+    <tr>
+      <th>Fecha de inicio</th>
+      <td>{{ fechas.start_date }}</td>
+    </tr>
+    <tr>
+      <th>Fecha de fin</th>
+      <td>{{ fechas.end_date }}</td>
+    </tr>
+    <tr>
+      <th>Número de personas</th>
+      <td>{{ fechas.num_people }}</td>
+    </tr>
+    <tr>
+      <th>Número de habitaciones</th>
+      <td>{{ fechas.num_rooms }}</td>
+    </tr>
+    <tr>
+      <th>Costo total</th>
+      <td>{{ costoCombinacion }}</td>
+    </tr>
+    <tr>
+      <th>Números de habitaciones</th>
+      <td>
+        <ul>
+          <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
+        </ul>
+      </td>
+    </tr>
 
+  </table>
+  <br>
+  <div style="text-align: center;">
+    <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
+  </div>
+  
 
-
-    <br>
-    <br>
-</form>
 
 <button class="seleccionar-habitaciones" [routerLink]="['/search']">
     Regresar

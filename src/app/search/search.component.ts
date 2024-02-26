@@ -96,7 +96,7 @@ export class SearchComponent {
 
     var fechas = datosBusqueda
     const fechasF = JSON.stringify(fechas);
-    localStorage.setItem('costoCombinacion', fechasF);
+    localStorage.setItem('fechas', fechasF);
 
     console.log(fechasF)
 
@@ -123,7 +123,6 @@ export class SearchComponent {
     const roomspriceFinal = roomsprice.reduce((total, price) => total + price * numberOfDays, 0); // Calcular el costo total multiplicando por el número de días
     return parseFloat(roomspriceFinal.toFixed(2));
   }
-
 
   selectRoom(roomsCombination: RoomCombination, Costo: any): void {
     console.log("Enviando datos de habitacion seleccionada", roomsCombination);

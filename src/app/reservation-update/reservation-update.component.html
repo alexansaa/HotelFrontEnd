@@ -1,5 +1,5 @@
 <!-- <p>reservation-update works!</p> -->
-<table border="1" class="table-style">
+<table border="1" class="table_reservations">
     <tr>
         <th>Reservaciones</th>
         <th>ID Usuario</th>
@@ -9,6 +9,7 @@
         <th>Rooms</th>
         <th>Total</th>
         <th>Update</th>
+        <th>Delete</th>
         <!-- <th>Seleccionar</th> -->
     </tr>
     <tr *ngFor="let reservation of reservations; let i = index">
@@ -35,6 +36,9 @@
         </td>
         <td>
             <button (click)="openPopUp(reservation)">Update</button>
+        </td>
+        <td>
+            <button (click)="deleteReservation(reservation)">Delete</button>
         </td>
     </tr>
 </table>

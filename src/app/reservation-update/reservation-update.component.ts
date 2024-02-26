@@ -44,4 +44,18 @@ export class ReservationUpdateComponent implements OnInit{
       data: reservation
     });
   }
+
+  deleteReservation(reservation: Reservation): void {
+    console.log(reservation);
+    
+    this.apiService.reservationDelete(reservation).subscribe({
+      next: () => {
+        console.log('Reservation deleted!');
+        window.location.reload();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data: ', error);
+      }
+    })
+  }
 }
