@@ -93,6 +93,18 @@ export class ApiService {
     return this.http.put<Room>(apiUrl, room, options);
   }
 
+  reservationDelete(reservation: Reservation): Observable<Reservation> {
+    const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.delete<Reservation>(apiUrl, options);
+  }
+
   reservationUpdate(reservation: Reservation): Observable<Reservation> {
     const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
 

@@ -1,0 +1,11 @@
+.table_reservations {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.table_reservations th,
+.table_reservations td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
