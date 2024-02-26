@@ -8,17 +8,11 @@ import { ApiService } from '../rooms_services/api.service';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { RoomOccupancy } from '../models/MyData';
-
-
-
-interface OrderData {
-    orderId: string;
-    // ... Otros campos de tu orden
-}
+import { v4 as uuidv4 } from 'uuid';
 
 
 interface Room {
-    _id: number;
+    _id: string;
     description: string;
     price: number;
     qty_beds: number;
@@ -89,11 +83,14 @@ export class PagoComponent implements OnInit {
         console.log("Usuario id: " + this.usuario._id);
 
         const bookingData = {
+            _id: uuidv4(),
             user_id: this.usuario._id,
             checkin_date: this.fechas.start_date,
             checkout_date: this.fechas.end_date,
             qty_guests: this.fechas.num_people,
-            rooms: this.combinacion.rooms,
+            rooms: this.combinacion.rooms.map((room: Room) => (room._id)),
+            // this.rooms.map((room, index) => (room._id === firstRoomId ? index : null)).filter(index => index !== null);
+            // rooms: this.combinacion.rooms,
             total_price: this.costoCombinacion
         }
 
@@ -143,7 +140,7 @@ export class PagoComponent implements OnInit {
                 console.log('onClientAuthorization - transacción completada', data);
                 const emailData = {
                     recipient: this.usuario.email,
-                    body: "Gracias por su reserva en Hotel Copo de Nieve.\nDetalles de su reserva:\nFecha de Checkin: " + bookingData.checkin_date + "\nFecha de Checkout: " + bookingData.checkout_date + "\nHabitaciones: " + bookingData.rooms + "\nNúmero de huéspedes: " + bookingData.qty_guests + "\nPrecio Total: " + costoRecuperado,
+                    body: "Gracias por su reserva en Hotel Copo de Nieve.\nDetalles de su reserva:\nId Reserva:" + bookingData._id + "\nFecha de Checkin: " + bookingData.checkin_date + "\nFecha de Checkout: " + bookingData.checkout_date + "\nHabitaciones: " + bookingData.rooms + "\nNúmero de huéspedes: " + bookingData.qty_guests + "\nPrecio Total: " + costoRecuperado,
                     subject: "Confirmación de Reserva Hotel Copo de Nieve"
                 };
                 this.http.post('http://localhost:5000/send_email', emailData).subscribe({

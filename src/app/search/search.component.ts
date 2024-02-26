@@ -124,7 +124,6 @@ export class SearchComponent {
     return parseFloat(roomspriceFinal.toFixed(2));
   }
 
-
   selectRoom(roomsCombination: RoomCombination, Costo: any): void {
     console.log("Enviando datos de habitacion seleccionada", roomsCombination);
 

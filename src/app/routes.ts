@@ -10,6 +10,7 @@ import { ConocenosComponent } from './conocenos/conocenos.component';
 import { PagoComponent } from './pago/pago.component';
 import { ConsultComponent } from './consult/consult.component';
 import { PrepagoComponent } from './prepago/prepago.component';
+import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
 
 const routeConfig: Routes = [
   {
@@ -49,6 +50,12 @@ const routeConfig: Routes = [
     component: AdminComponent,
     title: 'Admin Home',
     data: { title: 'Admin Home Dynamic Title', description: 'Admin Home Dynamic Description'}
+  },
+  {
+    path: 'showRooms',
+    component: ShowRoomsComponent,
+    title: 'All Rooms',
+    data: { title: 'Hotel Rooms', description: 'All Rooms from the hotel'}
   },
   {
     path: 'rooms',

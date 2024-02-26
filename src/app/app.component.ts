@@ -18,6 +18,7 @@ import { ConsultComponent } from './consult/consult.component';
 import { PrepagoComponent } from './prepago/prepago.component';
 import { ReservationStatusComponent } from './reservation-status/reservation-status.component';
 import { ReservationUpdateComponent } from './reservation-update/reservation-update.component';
+import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
 
 
 @Component({
@@ -43,7 +44,8 @@ import { ReservationUpdateComponent } from './reservation-update/reservation-upd
     ConsultComponent,
     PrepagoComponent,
     ReservationStatusComponent,
-    ReservationUpdateComponent
+    ReservationUpdateComponent,
+    ShowRoomsComponent
   ],
 
   templateUrl: './app.component.html',

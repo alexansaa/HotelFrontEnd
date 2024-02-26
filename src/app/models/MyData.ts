@@ -45,8 +45,6 @@ export interface RoomOccupancy {
     checkout_date: string;
 }
 
-
-
 export interface Reservation {
     _id: string,
     user_id: string,
@@ -59,6 +57,7 @@ export interface Reservation {
 }
 
 export interface Booking {
+    _id: string,
     user_id: string,
     checkin_date: string,
     checkout_date: string,

@@ -1,0 +1,24 @@
+<div *ngIf="rooms && rooms.length > 0">
+    <br>
+    <br>
+    <table border="1" class="table-style">
+        <tr>
+            <th>Habitaciones disponibles</th>
+            <th>Descripcion</th>
+        </tr>
+        <tr *ngFor="let responseData of rooms; let i = index">
+            <td>
+                <table border="1" class="inner-table">
+
+                    <tr *ngFor="let room of rooms">
+                        <app-rooms [room]="room"></app-rooms>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>

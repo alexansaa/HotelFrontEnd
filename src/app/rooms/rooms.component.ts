@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, input } from '@angular/core';
 import { Room } from '../models/MyData';
 import { NgFor } from '@angular/common';
+import { ApiService } from '../rooms_services/api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-rooms',
@@ -9,13 +11,7 @@ import { NgFor } from '@angular/common';
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css'
 })
-export class RoomsComponent implements OnInit{
+export class RoomsComponent{
   @Input() room!: Room;
-
-  constructor() {}
-
-  ngOnInit() {
-    // Fetch data from API or service and assign it to responseData
-    // Example: this.responseData = // ... fetch data logic ...
-  }
+  
 }
