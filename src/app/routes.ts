@@ -56,7 +56,7 @@ const routeConfig: Routes = [
     path: 'showRooms',
     component: ShowRoomsComponent,
     title: 'All Rooms',
-    data: { title: 'Hotel Rooms', description: 'All Rooms from the hotel'}
+    data: { title: 'Hotel Rooms', description: 'Aqui se presenta todas las habitaciones disponibles para nuestro hotel "Copo de Nieve" :)'}
   },
   {
     path: 'rooms',
