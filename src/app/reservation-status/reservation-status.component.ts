@@ -15,8 +15,8 @@ import { ApiService } from '../rooms_services/api.service';
   styleUrl: './reservation-status.component.css'
 })
 export class ReservationStatusComponent implements OnInit {
-  private startDate: string = new Date().toISOString().slice(0, 10);
-  private endDate: string = new Date().toISOString().slice(0, 10);
+  private startDate: string = '';
+  private endDate: string = '';
   rooms: Room[] = [];
   minDate = new Date().toISOString().slice(0, 10);
 
@@ -25,7 +25,7 @@ export class ReservationStatusComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllRooms();
+    // this.getAllRooms();
   }
 
   CheckIn(event: any) {    
@@ -54,7 +54,7 @@ export class ReservationStatusComponent implements OnInit {
     let end_Date = Date.parse(this.endDate);
 
     this.rooms.forEach((room) => {
-      room.free = false;
+      room.free = true;
       room.occupancy.forEach((ocupDate) => {
         const compare_start_date = Date.parse(ocupDate[0]);
         const compare_end_date = Date.parse(ocupDate[1]);
