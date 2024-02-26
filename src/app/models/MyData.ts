@@ -28,16 +28,23 @@ export interface RoomCombination {
 }
 
 export interface Room {
-    _id: string,
-    description: string,
-    occupancy: number,
-    people_capacity: number,
-    price: number,
-    qty_beds: number,
-    room_type: string,
-    size: number,
-    images: string
+    _id: string;
+    description: string;
+    occupancy: string[][];
+    people_capacity: number;
+    price: number;
+    qty_beds: number;
+    room_type: string;
+    size: number;
+    images: string[];
 }
+
+export interface RoomOccupancy {
+    _id: string;
+    occupancy: string[][];
+}
+
+
 
 export interface Reservation {
     _id: string,

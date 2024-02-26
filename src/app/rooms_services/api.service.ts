@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Booking, Reservation, Room, RoomCombination, SearchRoomData } from '../models/MyData';
+import { Booking, Reservation, Room, RoomCombination, RoomOccupancy, SearchRoomData } from '../models/MyData';
 
 @Injectable({
   providedIn: 'root' // Adjust provider as needed
@@ -69,7 +69,7 @@ export class ApiService {
     return this.http.post<Room>(apiUrl, options);
   }
 
-  updateRoom(room: Room): Observable<Room> {
+  updateRoom(room: RoomOccupancy): Observable<RoomOccupancy> {
     const apiUrl = 'http://localhost:5000/rooms/${room._id}';
 
     const options = {
@@ -78,7 +78,7 @@ export class ApiService {
       })
     };
 
-    return this.http.put<Room>(apiUrl, room, options);
+    return this.http.put<RoomOccupancy>(apiUrl, room, options);
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {

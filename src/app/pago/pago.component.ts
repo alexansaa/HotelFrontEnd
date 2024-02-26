@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { NgModule } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../rooms_services/api.service';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { RoomOccupancy } from '../models/MyData';
+
 
 
 interface OrderData {
@@ -60,10 +64,11 @@ export class PagoComponent implements OnInit {
             this.costoCombinacion = costoCombinacionString;
         }
 
-        const usuario = localStorage.getItem('usuario');
-        if (usuario) {
-            this.usuario = usuario;
+        const usuarioString = localStorage.getItem('usuario');
+        if (usuarioString) {
+            this.usuario = JSON.parse(usuarioString); // Parsea el usuario completo
         }
+
 
         const combinacion = localStorage.getItem('combinacion');
         if (combinacion) {
@@ -81,15 +86,19 @@ export class PagoComponent implements OnInit {
     private initConfig(): void {
         const combinacionString = localStorage.getItem('combinacion');
 
+        console.log("Usuario id: " + this.usuario._id);
+
         const bookingData = {
             user_id: this.usuario._id,
             checkin_date: this.fechas.start_date,
             checkout_date: this.fechas.end_date,
-            qty_guests: this.combinacion.num_people,
+            qty_guests: this.fechas.num_people,
             rooms: this.combinacion.rooms,
             total_price: this.costoCombinacion
         }
-        console.log('combinacionString', combinacionString);
+
+
+        console.log('Datos de la reserva:', bookingData);
 
         const costoRecuperado = localStorage.getItem('costoCombinacion');
         this.payPalConfig = {
@@ -147,6 +156,8 @@ export class PagoComponent implements OnInit {
                     }
                 });
 
+                // Creo la reserva en la colección de reservas
+
                 this.apiService.reservationCreate(bookingData).subscribe({
                     next: () => {
                         // Handle successful response here
@@ -158,6 +169,28 @@ export class PagoComponent implements OnInit {
                         console.error('Error fetching data:', error);
                         // Display an error message to the user
                     }
+                });
+
+                // Crear objetos RoomOccupancy para cada habitación reservada
+                const roomOccupancies: RoomOccupancy[] = [];
+                this.combinacion.rooms.forEach((roomId: string) => {
+                    const roomOccupancy: RoomOccupancy = {
+                        _id: roomId,
+                        occupancy: [[this.fechas.start_date, this.fechas.end_date]] // Asignamos las fechas de check-in y check-out
+                    };
+                    roomOccupancies.push(roomOccupancy);
+                });
+
+                // Actualizar las habitaciones en el servidor
+                roomOccupancies.forEach((roomOccupancy: RoomOccupancy) => {
+                    this.apiService.updateRoom(roomOccupancy).subscribe({
+                        next: () => {
+                            console.log('Habitación actualizada correctamente:', roomOccupancy);
+                        },
+                        error: (error: HttpErrorResponse) => {
+                            console.error('Error al actualizar la habitación:', error);
+                        }
+                    });
                 });
 
 
