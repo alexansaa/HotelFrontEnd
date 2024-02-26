@@ -149,7 +149,7 @@ export class PagoComponent implements OnInit {
                 this.http.post('http://localhost:5000/send_email', emailData).subscribe({
                     next: (response) => {
                         console.log('Correo de confirmación enviado', response);
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/confirmacion']);
                     },
                     error: (error) => {
                         console.error('Error al enviar el correo de confirmación', error);

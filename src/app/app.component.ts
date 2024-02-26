@@ -43,7 +43,7 @@ import { ReservationUpdateComponent } from './reservation-update/reservation-upd
     ConsultComponent,
     PrepagoComponent,
     ReservationStatusComponent,
-    ReservationUpdateComponent
+    ReservationUpdateComponent,
   ],
 
   templateUrl: './app.component.html',

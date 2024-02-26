@@ -10,6 +10,7 @@ import { ConocenosComponent } from './conocenos/conocenos.component';
 import { PagoComponent } from './pago/pago.component';
 import { ConsultComponent } from './consult/consult.component';
 import { PrepagoComponent } from './prepago/prepago.component';
+import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
 
 const routeConfig: Routes = [
   {
@@ -85,6 +86,12 @@ const routeConfig: Routes = [
     component: PrepagoComponent,
     title: 'Datos del Cliente',
     data: { title: 'Prepago', description: 'En esta pestaña ingrese sus datos para la reserva.' }
+  },
+  {
+    path: 'confirmacion',
+    component: ConfirmacionComponent,
+    title: 'Reserva Confirmada',
+    data: { title: 'Gracias por confiar en Hotel Copo de Nieve' }
   }
 ];
 
