@@ -24,3 +24,11 @@
     border: 1px solid #ddd;
     padding: 8px;
 }
+
+.green_room {
+    background-color: green;
+}
+
+.red_room {
+    background-color: red;
+}

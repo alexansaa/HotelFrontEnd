@@ -37,6 +37,7 @@ export interface Room {
     room_type: string;
     size: number;
     images: string[];
+    free: boolean;
 }
 
 export interface RoomOccupancy {

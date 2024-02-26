@@ -1,49 +1,44 @@
-<!-- <p>reservation-status works!</p> -->
 <div class="dates_disponibility">
     <div class="dates_input">
         <h3>Check In</h3>
-        <input type="date" id="check-in-date" [min]="minDate">
+        <input type="date" id="check-in-date" [min]="minDate" (change)="CheckIn($event)">
     </div>
     <div class="dates_input">
         <h3>Check Out</h3>
-        <input type="date" id="check-out-date" [min]="minDate">
+        <input type="date" id="check-out-date" [min]="minDate" (change)="CheckOut($event)">
     </div>
 </div>
+
+<div>
+    <button type="button" (click)="filterUpdate()">Update</button>
+</div>
+
 <table border="1" class="table_disponibility">
     <tr>
         <th>Habitaciones</th>
         <th>Tipo</th>
-        <th>Disponibilidad</th>
         <th>Capacidad</th>
         <th>Precio</th>
         <th>Camas</th>
         <th>Tamano</th>
-        <!-- <th>Seleccionar</th> -->
     </tr>
     <tr *ngFor="let room of rooms; let i = index">
-        <td>
-            {{ room._id }}
-        </td>
-        <td>
-            {{ room.room_type }}
-        </td>
-        <td>
-            {{ room.occupancy }}
-        </td>
-        <td>
-            {{ room.people_capacity }}
-        </td>
-        <td>
-            {{ room.price }}
-        </td>
-        <td>
-            {{ room.qty_beds }}
-        </td>
-        <td>
-            {{ room.size}}
-        </td>
-        <!-- <td>
-            <button (click)="openPopUp(room)">Update</button>
-        </td> -->
+        <td *ngIf="this.room.free; else elseIdRoom" class="green_room">{{ room._id }}</td>
+        <ng-template #elseIdRoom><td class="red_room">{{ room._id }}</td></ng-template>
+        
+        <td *ngIf="this.room.free; else elseTypeRoom" class="green_room">{{ room.room_type }}</td>
+        <ng-template #elseTypeRoom><td class="red_room">{{ room.room_type }}</td></ng-template>
+        
+        <td *ngIf="this.room.free; else elseCapacityRoom" class="green_room">{{ room.people_capacity }}</td>
+        <ng-template #elseCapacityRoom><td class="red_room">{{ room.people_capacity }}</td></ng-template>
+        
+        <td *ngIf="this.room.free; else elsePrizeRoom" class="green_room">{{ room.price }}</td>
+        <ng-template #elsePrizeRoom><td class="red_room">{{ room.price }}</td></ng-template>
+        
+        <td *ngIf="this.room.free; else elseBedsRoom" class="green_room">{{ room.qty_beds }}</td>
+        <ng-template #elseBedsRoom><td class="red_room">{{ room.qty_beds }}</td></ng-template>
+        
+        <td *ngIf="this.room.free; else elseSizeRoom" class="green_room">{{ room.size }}</td>
+        <ng-template #elseSizeRoom><td class="red_room">{{ room.size }}</td></ng-template>
     </tr>
 </table>
