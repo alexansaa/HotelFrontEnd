@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   updateRoom(room: RoomOccupancy): Observable<RoomOccupancy> {
-    const apiUrl = 'http://localhost:5000/rooms/${room._id}';
+    const apiUrl = 'http://localhost:5000/rooms/' + room._id;
 
     const options = {
       headers: new HttpHeaders({
@@ -115,7 +115,7 @@ export class ApiService {
       })
     };
 
-    return this.http.post<Booking>(apiUrl, options);
+    return this.http.post<Booking>(apiUrl, booking, options);
   }
 
 

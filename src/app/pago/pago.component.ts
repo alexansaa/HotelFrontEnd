@@ -158,6 +158,8 @@ export class PagoComponent implements OnInit {
 
                 // Creo la reserva en la colección de reservas
 
+
+                
                 this.apiService.reservationCreate(bookingData).subscribe({
                     next: () => {
                         // Handle successful response here
@@ -173,16 +175,18 @@ export class PagoComponent implements OnInit {
 
                 // Crear objetos RoomOccupancy para cada habitación reservada
                 const roomOccupancies: RoomOccupancy[] = [];
-                this.combinacion.rooms.forEach((roomId: string) => {
+                this.combinacion.rooms.forEach((room: Room) => {
                     const roomOccupancy: RoomOccupancy = {
-                        _id: roomId,
-                        occupancy: [[this.fechas.start_date, this.fechas.end_date]] // Asignamos las fechas de check-in y check-out
+                        _id: room._id.toString(),
+                        checkin_date: this.fechas.start_date,
+                        checkout_date: this.fechas.end_date // Asignamos las fechas de check-in y check-out
                     };
                     roomOccupancies.push(roomOccupancy);
                 });
 
                 // Actualizar las habitaciones en el servidor
                 roomOccupancies.forEach((roomOccupancy: RoomOccupancy) => {
+                    console.log("Id del cuarto: " + roomOccupancy._id);
                     this.apiService.updateRoom(roomOccupancy).subscribe({
                         next: () => {
                             console.log('Habitación actualizada correctamente:', roomOccupancy);
