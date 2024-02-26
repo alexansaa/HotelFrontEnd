@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConsultComponent } from './consult/consult.component';
+import { PrepagoComponent } from './prepago/prepago.component';
 import { ReservationStatusComponent } from './reservation-status/reservation-status.component';
 import { ReservationUpdateComponent } from './reservation-update/reservation-update.component';
 
@@ -40,6 +41,7 @@ import { ReservationUpdateComponent } from './reservation-update/reservation-upd
     MatFormFieldModule,
     MatInputModule,
     ConsultComponent,
+    PrepagoComponent,
     ReservationStatusComponent,
     ReservationUpdateComponent
   ],
