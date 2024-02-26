@@ -45,7 +45,7 @@ import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
     PrepagoComponent,
     ReservationStatusComponent,
     ReservationUpdateComponent,
-    ShowRoomsComponent
+    ShowRoomsComponent,
   ],
 
   templateUrl: './app.component.html',

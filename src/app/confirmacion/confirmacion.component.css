@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+h1 {
+    font-size: 36px;
+    color: #007bff; /* Color azul */
+}
+
+p {
+    font-size: 24px;
+    color: #333; /* Color gris oscuro */
+}
