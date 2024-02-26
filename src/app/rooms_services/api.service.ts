@@ -45,6 +45,18 @@ export class ApiService {
     return this.http.get<Reservation[]>(apiUrl, options);
   }
 
+  allRooms(): Observable<Room[]> {
+    const apiUrl = 'http://localhost:5000/rooms';
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.get<Room[]>(apiUrl, options);
+  }
+
   deleteRoom(id: string): Observable<void> {
     const apiUrl = 'http://localhost:5000/rooms/${id}';
 
@@ -82,7 +94,7 @@ export class ApiService {
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'http://localhost:5000/admin/booking/' + reservation._id;
+    const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
 
     const options = {
       headers: new HttpHeaders({

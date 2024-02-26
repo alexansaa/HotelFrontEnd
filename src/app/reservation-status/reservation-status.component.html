@@ -1,1 +1,45 @@
-<p>reservation-status works!</p>
+<!-- <p>reservation-status works!</p> -->
+<div>
+    <h3>Check In</h3>
+    <input type="date" id="check-in-date" [min]="minDate">
+    <h3>Check Out</h3>
+    <input type="date" id="check-out-date" [min]="minDate">
+</div>
+<table border="1" class="table-style">
+    <tr>
+        <th>Habitaciones</th>
+        <th>Tipo</th>
+        <th>Disponibilidad</th>
+        <th>Capacidad</th>
+        <th>Precio</th>
+        <th>Camas</th>
+        <th>Tamano</th>
+        <!-- <th>Seleccionar</th> -->
+    </tr>
+    <tr *ngFor="let room of rooms; let i = index">
+        <td>
+            {{ room._id }}
+        </td>
+        <td>
+            {{ room.room_type }}
+        </td>
+        <td>
+            {{ room.occupancy }}
+        </td>
+        <td>
+            {{ room.people_capacity }}
+        </td>
+        <td>
+            {{ room.price }}
+        </td>
+        <td>
+            {{ room.qty_beds }}
+        </td>
+        <td>
+            {{ room.size}}
+        </td>
+        <!-- <td>
+            <button (click)="openPopUp(room)">Update</button>
+        </td> -->
+    </tr>
+</table>
