@@ -2,12 +2,26 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    background-color: #f8f9fa; /* Cambia el color de fondo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra suave */
+    border-radius: 8px; /* Añade bordes redondeados */
 }
 
 table th,
 table td {
-    border: 1px solid black;
-    padding: 8px;
+    border: 1px solid #dee2e6; /* Añade bordes con un tono más claro */
+    padding: 12px; /* Aumenta el espaciado interno */
+    text-align: center; /* Centra el contenido */
+}
+
+table th {
+    background-color: #f0f0f0; /* Cambia el color de fondo de las celdas de encabezado */
+    font-weight: bold; /* Hace que el texto del encabezado sea más audaz */
+}
+
+/* Resalta las filas pares */
+table tr:nth-child(even) {
+    background-color: #f3f3f3; /* Cambia el color de fondo de las filas pares */
 }
 
 /* Carousel item */
@@ -39,7 +53,7 @@ table td {
     /* Adjust table cells for smaller screens */
     table th,
     table td {
-        padding: 5px;
+        padding: 10px; /* Ajusta el espaciado interno para pantallas más pequeñas */
         font-size: 14px;
     }
 

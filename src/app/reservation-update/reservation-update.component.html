@@ -1,44 +1,40 @@
-<!-- <p>reservation-update works!</p> -->
-<table border="1" class="table_reservations">
-    <tr>
-        <th>Reservaciones</th>
-        <th>ID Usuario</th>
-        <th>Check In</th>
-        <th>Check Out</th>
-        <th>Qty Guests</th>
-        <th>Rooms</th>
-        <th>Total</th>
-        <th>Update</th>
-        <th>Delete</th>
-        <!-- <th>Seleccionar</th> -->
-    </tr>
-    <tr *ngFor="let reservation of reservations; let i = index">
-        <td>
-            {{ reservation._id }}
-        </td>
-        <td>
-            {{ reservation.user_id }}
-        </td>
-        <td>
-            {{ reservation.checkin_date }}
-        </td>
-        <td>
-            {{ reservation.checkout_date }}
-        </td>
-        <td>
-            {{ reservation.qty_guests }}
-        </td>
-        <td>
-            {{ reservation.rooms.join(',') }}
-        </td>
-        <td>
-            {{ reservation.total_price}}
-        </td>
-        <td>
-            <button (click)="openPopUp(reservation)">Update</button>
-        </td>
-        <td>
-            <button (click)="deleteReservation(reservation)">Delete</button>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered table_reservations">
+                    <thead>
+                        <tr>
+                            <th>Reservaciones</th>
+                            <th>ID Usuario</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Qty Guests</th>
+                            <th>Rooms</th>
+                            <th>Total</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let reservation of reservations; let i = index">
+                            <td>{{ reservation._id }}</td>
+                            <td>{{ reservation.user_id }}</td>
+                            <td>{{ reservation.checkin_date }}</td>
+                            <td>{{ reservation.checkout_date }}</td>
+                            <td>{{ reservation.qty_guests }}</td>
+                            <td>{{ reservation.rooms.join(',') }}</td>
+                            <td>{{ reservation.total_price }}</td>
+                            <td>
+                                <button (click)="openPopUp(reservation)" class="btn btn-primary">Update</button>
+                            </td>
+                            <td>
+                                <button (click)="deleteReservation(reservation)" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
