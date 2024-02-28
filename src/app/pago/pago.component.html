@@ -1,44 +1,41 @@
-<table>
-    <tr>
-      <th>Fecha de inicio</th>
-      <td>{{ fechas.start_date }}</td>
-    </tr>
-    <tr>
-      <th>Fecha de fin</th>
-      <td>{{ fechas.end_date }}</td>
-    </tr>
-    <tr>
-      <th>Número de personas</th>
-      <td>{{ fechas.num_people }}</td>
-    </tr>
-    <tr>
-      <th>Número de habitaciones</th>
-      <td>{{ fechas.num_rooms }}</td>
-    </tr>
-    <tr>
-      <th>Costo total</th>
-      <td>{{ costoCombinacion }}</td>
-    </tr>
-    <tr>
-      <th>Números de habitaciones</th>
-      <td>
-        <ul>
-          <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
-        </ul>
-      </td>
-    </tr>
-
+<div class="container">
+  <table class="table">
+      <tbody>
+          <tr>
+              <th scope="row">Fecha de inicio</th>
+              <td>{{ fechas.start_date }}</td>
+          </tr>
+          <tr>
+              <th scope="row">Fecha de fin</th>
+              <td>{{ fechas.end_date }}</td>
+          </tr>
+          <tr>
+              <th scope="row">Número de personas</th>
+              <td>{{ fechas.num_people }}</td>
+          </tr>
+          <tr>
+              <th scope="row">Número de habitaciones</th>
+              <td>{{ fechas.num_rooms }}</td>
+          </tr>
+          <tr>
+              <th scope="row">Costo total</th>
+              <td>{{ costoCombinacion }}</td>
+          </tr>
+          <tr>
+              <th scope="row">Números de habitaciones</th>
+              <td>
+                  <ul>
+                      <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
+                  </ul>
+              </td>
+          </tr>
+      </tbody>
   </table>
-  <br>
-  <div style="text-align: center;">
-    <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
+  <div class="text-center">
+      <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
   </div>
-  
 
-
-<button class="seleccionar-habitaciones" [routerLink]="['/search']">
-    Regresar
-</button>
-
-<br>
-<br>
+  <button class="btn btn-primary seleccionar-habitaciones" [routerLink]="['/search']">
+      Regresar
+  </button>
+</div>
