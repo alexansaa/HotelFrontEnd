@@ -1,65 +1,19 @@
 /* Table styles */
-table tr td {
-    color: black;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Media query for smaller screens */
-@media only screen and (max-width: 768px) {
-    .check-in-out-container {
-        flex-direction: column;
-    }
-
-    /* Adjust the carousel container for smaller screens */
-    .carousel-container {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* Adjust the carousel items for smaller screens */
-    .carousel-inner {
-        width: 100%;
-    }
-
-    /* Remove animation on smaller screens */
-    .carousel-item {
-        animation: none;
-    }
-}
-
-/* Carousel container */
-.carousel-container {
-    max-width: 500px; /* Adjust as needed */
-    height: 300px; /* Adjust as needed */
-    overflow: hidden;
-    position: relative;
-}
-
-/* Carousel inner */
-.carousel-inner {
-    display: flex;
-    width: 300%; /* Three times the width of the carousel item */
+table th,
+table td {
+    border: 1px solid black;
+    padding: 8px;
 }
 
 /* Carousel item */
-.carousel-item {
-    width: 33.33%; /* Each carousel item takes up one-third of the carousel */
-    height: 100%;
-    transition: transform 0.5s ease; /* Smooth transition */
-}
-
-/* Keyframes for carousel animation */
-@keyframes carousel-animation {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-33.33%); /* Move the carousel by one-third of its width */
-    }
-}
-
-/* Apply animation to carousel item */
-.carousel-item {
-    animation: carousel-animation 5s linear infinite; /* Adjust animation duration as needed */
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Optional styling for people-habitations */
@@ -80,7 +34,24 @@ table tr td {
     border: none;
 }
 
-/* Optional width for inner table */
-.inner-table {
-    width: 100%;
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+    /* Adjust table cells for smaller screens */
+    table th,
+    table td {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    /* Adjust carousel item images for smaller screens */
+    .carousel-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Adjust carousel controls for smaller screens */
+    .carousel-control-prev,
+    .carousel-control-next {
+        font-size: 12px;
+    }
 }

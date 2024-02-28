@@ -1,13 +1,6 @@
-footer {
-    background: linear-gradient(to bottom, rgb(120, 149, 122) 0%, rgb(54, 77, 55) 80%);
-    border-top-left-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    padding: 3% 5%; /* Reducir el padding en pantallas más pequeñas */
-    color: white;
-}
-
+/* Keep styles for images and paragraph text */
 footer img {
-    max-width: 100%; /* Hacer que las imágenes sean responsivas */
+    max-width: 100%; 
     max-height: 35px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -17,41 +10,8 @@ footer p {
     font-size: smaller;
 }
 
-.main_footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.main_footer>div {
-    flex: 1;
-    margin-right: 5px;
-    text-align: center;
-    margin-top: 10px; /* Incrementar el espacio entre los elementos */
-}
-
-.main_footer>div:last-child {
-    margin-right: 0;
-}
-
-.secondary_footer {
-    text-align: center;
-    font-size: smaller;
-    margin-top: 10px; /* Incrementar el espacio entre los elementos */
-}
-
-.info_element {
-    display: flex;
-    justify-content: center;
-}
-
 @media (max-width: 768px) {
     footer {
-        padding: 3% 3%; /* Reducir el padding en pantallas más pequeñas */
-    }
-    
-    .main_footer>div {
-        flex-basis: 100%; /* Hacer que los elementos ocupen todo el ancho en pantallas pequeñas */
-        margin-right: 0;
+        padding: 3% 3%; /* Keep padding reduction for small screens */
     }
 }

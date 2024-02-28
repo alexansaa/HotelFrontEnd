@@ -1,10 +1,16 @@
-<div class="consult-container">
-  <h3>Consulta de Reserva</h3>
-  <mat-form-field appearance="outline">
-    <mat-label>ID de Reserva</mat-label>
-    <input matInput type="text" [(ngModel)]="reservationId">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="search()">Consultar</button>
-
-  
+<div class="consult-container container">
+  <h3 class="mt-3">Consulta de Reserva</h3>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="reservationId">ID de Reserva</label>
+              <input type="text" class="form-control" id="reservationId" [(ngModel)]="reservationId">
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <button type="button" class="btn btn-primary" (click)="search()">Consultar</button>
+      </div>
+  </div>
 </div>
