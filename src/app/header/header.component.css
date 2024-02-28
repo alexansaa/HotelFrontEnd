@@ -30,7 +30,7 @@ header {
 }
 
 /* Header title and description styles */
-header h2,
+header h1,
 header p {
   color: gray;
   /* Matches your original color */
@@ -38,7 +38,7 @@ header p {
   /* Maintains center alignment */
 }
 
-header h2 {
+header h1 {
   font-size: 2rem;
   /* Adjust font size as needed */
 }
@@ -49,19 +49,39 @@ header p {
 }
 
 /* Navbar styles */
+/* Estilo personalizado para mostrar las tres líneas en el botón del menú hamburguesa */
 .navbar-toggler-icon {
-  color: rgba(17, 73, 15, 0.5);
-  /* Semi-transparent icon color */
+  background-image: none;
+  width: 24px;
+  height: 18px; /* Ajusta la altura según sea necesario */
+  border-top: 3px solid black; /* Tres líneas */
+  border-bottom: 3px solid black; /* Tres líneas */
+  border-radius: 2px; /* Borde redondeado opcional */
 }
+
+
+
+
+
 
 .navbar-toggler {
   border: none;
   outline: none;
 }
 
-/* Dropdown menu styles */
-.dropdown-menu {
-  border-radius: 5px;
+/* Offcanvas menu styles */
+.offcanvas {
+  background-color: #fff;
+  /* Background color of the offcanvas */
+}
+
+.offcanvas-header {
+  background-color: rgba(16, 93, 16, 0.25);
+  /* Header background color */
+}
+
+.offcanvas-body {
+  padding: 1rem;
 }
 
 /* Dropdown item styles */
