@@ -58,13 +58,11 @@
                             <span class="cost-label">Costo total de la combinacion: <br> <br> {{
                                 costoCombinacion(responseData) }}</span>
                             <br><br>
-                            <div>
-                                <button class="btn btn-success seleccionar-habitaciones"
-                                    (click)="selectRoom(response[i], costoCombinacion(responseData))"
-                                    routerLink="['/prepago']">
-                                    Seleccionar
-                                </button>
-                            </div>
+                            <button class="btn btn-success seleccionar-habitaciones"
+                                (click)="selectRoom(response[i], costoCombinacion(responseData))"
+                                [routerLink]="['/prepago']">
+                                Seleccionar
+                            </button>
                         </td>
                     </tr>
                 </tbody>
