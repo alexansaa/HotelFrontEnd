@@ -60,7 +60,7 @@
                             <br><br>
                             <button class="btn btn-success seleccionar-habitaciones"
                                 (click)="selectRoom(response[i], costoCombinacion(responseData))"
-                                routerLink="['/prepago']">
+                                [routerLink]="['/prepago']">
                                 Seleccionar
                             </button>
                         </td>
