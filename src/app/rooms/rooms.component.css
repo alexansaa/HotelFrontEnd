@@ -1,57 +1,70 @@
+/* Table styles */
 table tr td {
     color: black;
 }
 
+/* Media query for smaller screens */
 @media only screen and (max-width: 768px) {
     .check-in-out-container {
         flex-direction: column;
     }
 }
 
-
+/* Carousel container */
 .carousel-container {
-    width: 500px;
-    height: 300px;
+    max-width: 500px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
     overflow: hidden;
     position: relative;
 }
 
+/* Carousel inner */
 .carousel-inner {
     display: flex;
-    width: inherit;
+    width: 300%; /* Three times the width of the carousel item */
 }
 
+/* Carousel item */
 .carousel-item {
-    width: 100%;
+    width: 33.33%; /* Each carousel item takes up one-third of the carousel */
     height: 100%;
+    transition: transform 0.5s ease; /* Smooth transition */
 }
 
+/* Keyframes for carousel animation */
 @keyframes carousel-animation {
     from {
         transform: translateX(0);
     }
-
     to {
-        transform: translateX(-100%);
+        transform: translateX(-33.33%); /* Move the carousel by one-third of its width */
     }
 }
 
+/* Apply animation to carousel item */
 .carousel-item {
-    animation: carousel-animation 15s linear infinite;
+    animation: carousel-animation 5s linear infinite; /* Adjust animation duration as needed */
 }
+
+/* Optional styling for people-habitations */
 .people-habitations {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+/* Optional border styling */
 .borders {
     border: 1px solid #000000;
     padding: 5px; /* Optional styling for space within borders */
 }
 
-.borders img { /* Optional to remove borders around images if needed */
+/* Optional styling to remove borders around images */
+.borders img {
     border: none;
 }
-.inner-table{
+
+/* Optional width for inner table */
+.inner-table {
     width: 100%;
 }

@@ -1,13 +1,14 @@
-<div class="main-container">
-    <div class="check-in-out-container">
-        <div class="check-in-out">
-            <h3>Check In</h3>
-            <input type="date" id="check-in-date" [min]="minDate" #checkInDate (change)="CheckIn($event)">
-            <h3>Check Out</h3>
-            <input type="date" id="check-out-date" [min]="minDate" #checkOutDate (change)="CheckOut($event)">
+<div class="container-fluid main-container">
+    <div class="row">
+        <div class="col-md-6 check-in-out-container">
+            <div class="check-in-out">
+                <h3>Check In</h3>
+                <input type="date" id="check-in-date" [min]="minDate" #checkInDate (change)="CheckIn($event)">
+                <h3>Check Out</h3>
+                <input type="date" id="check-out-date" [min]="minDate" #checkOutDate (change)="CheckOut($event)">
+            </div>
         </div>
-
-        <div class="people-habitations">
+        <div class="col-md-6 people-habitations">
             <h3>Numero de personas</h3>
             <b><span id="num-people">{{ numeroPersonas }}</span></b>
             <button (click)="incrementarP()">+</button>
@@ -17,57 +18,61 @@
             <b><span id="num-habitations">{{ numeroHabitaciones }}</span></b>
             <button (click)="incrementarH()">+</button>
             <button (click)="decrementarH()">-</button>
-
         </div>
     </div>
 
-
     <br>
     <br>
 
-    <div>
-        <button class="buscar-habitaciones" (click)="buscarHabitaciones()">
-            Buscar habitaciones
-        </button>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary buscar-habitaciones" (click)="buscarHabitaciones()">
+                Buscar habitaciones
+            </button>
+        </div>
     </div>
 
-    <div *ngIf="response && response.length > 0">
-        <br>
-        <br>
-        <table border="1" class="table-style">
-            <tr>
-                <th>Habitaciones disponibles</th>
-                <th>Seleccionar</th>
-            </tr>
-            <tr *ngFor="let responseData of response; let i = index">
-                <td>
-                    <table border="1" class="inner-table">
-
-                        <tr *ngFor="let room of responseData.rooms">
-                            <app-rooms [room]="room"></app-rooms>
-                        </tr>
-
-                    </table>
-                </td>
-
-                <td>
-                    <span class="cost-label">Costo total de la combinacion: <br> <br> {{ costoCombinacion(responseData)
-                        }}</span>
-                    <br><br>
-
-                    <button class="seleccionar-habitaciones"
-                        (click)="selectRoom(response[i], costoCombinacion(responseData));" [routerLink]="['/prepago']">
-                        Seleccionar
-                    </button>
-                </td>
-            </tr>
-        </table>
-
-
-
+    <div class="row" *ngIf="response && response.length > 0">
+        <div class="col-md-12">
+            <br>
+            <br>
+            <table class="table table-bordered table-style">
+                <thead>
+                    <tr>
+                        <th>Habitaciones disponibles</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let responseData of response; let i = index">
+                        <td>
+                            <table class="table table-bordered inner-table">
+                                <tbody>
+                                    <tr *ngFor="let room of responseData.rooms">
+                                        <app-rooms [room]="room"></app-rooms>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <span class="cost-label">Costo total de la combinacion: <br> <br> {{
+                                costoCombinacion(responseData) }}</span>
+                            <br><br>
+                            <button class="btn btn-success seleccionar-habitaciones"
+                                (click)="selectRoom(response[i], costoCombinacion(responseData));"
+                                [routerLink]="['/prepago']">
+                                Seleccionar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div *ngIf="!response">
-        <p>No data received from the backend.</p>
+    <div class="row" *ngIf="!response">
+        <div class="col-md-12">
+            <p>No data received from the backend.</p>
+        </div>
     </div>
 </div>

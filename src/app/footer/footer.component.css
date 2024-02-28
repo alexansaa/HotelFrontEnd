@@ -2,48 +2,46 @@ footer {
     background: linear-gradient(to bottom, rgb(120, 149, 122) 0%, rgb(54, 77, 55) 80%);
     border-top-left-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    padding: 3% 10%;
+    /* Simplificado el padding */
     color: white;
 }
 
 footer img {
-    max-width: 8%;
-    max-height: 5%;
-    margin-right: 15px;
+    max-width: 35%;
+    max-height: 35%;
+    margin-right: 10px;
 }
 
 footer p {
-    font-size: small;
+    font-size: smaller;
+    /* Reemplazado por smaller */
 }
 
 .main_footer {
     display: flex;
+    flex-wrap: wrap;
+    /* Permitir que los elementos se envuelvan en pantallas pequeñas */
     justify-content: space-between;
 }
 
-.main_footer div {
-    text-align: center;
-}
-
-.main_footer > div {
+.main_footer>div {
     flex: 1;
-    margin-right: 10px;
+    margin-right: 5px;
+    text-align: center;
+    /* Alineación central en todos los divs */
 }
 
-.main_footer > div:last-child {
+.main_footer>div:last-child {
     margin-right: 0;
 }
 
-.info_content div, p {
+.info_content div,
+p {
     margin: 0;
     padding: 0;
-}
-
-.info_content div {
     margin-top: 7px;
+    /* Mover los elementos más cerca unos de otros */
 }
 
 .secondary_footer {
@@ -53,4 +51,17 @@ footer p {
 
 .info_element {
     display: flex;
+    justify-content: center;
+    /* Alinear elementos secundarios al centro */
+}
+
+footer img {
+    max-width: 100%;
+    max-height: 35px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: smaller;
 }

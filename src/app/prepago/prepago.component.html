@@ -1,40 +1,46 @@
-<form (ngSubmit)="submitForm()" #form="ngForm">
-    <p>
-        <label for="tipo_documento">Tipo de documento: </label>
-        <select name="tipo_documento" id="tipo_documento" required [(ngModel)]="tipoDocumento" name="tipo_documento">
-            <option value="">Selecciona una opción</option>
-            <option value="cedula">Cédula</option>
-            <option value="pasaporte">Pasaporte</option>
-        </select>
-        <input type="text" placeholder="Documento" name="documento" [(ngModel)]="documento" required>
-    </p>
-    <p>
-        <label for="nombre">Nombre: </label>
-        <input type="text" placeholder="Nombre completo" name="nombre" [(ngModel)]="nombre" required>
-    </p>
-    <p>
-        <label for="apellido">Apellido: </label>
-        <input type="text" placeholder="Apellido completo" name="apellido" [(ngModel)]="apellido" required>
-    </p>
-    <p>
-        <label for="correo_electronico">Correo electrónico: </label>
-        <input type="email" placeholder="Correo Electronico" name="correo_electronico" [(ngModel)]="correoElectronico" required>
-    </p>
-    <p>
-        <label for="numero_telefono">Número de teléfono: </label>
-        <input type="tel" placeholder="Numero de telefono" name="numero_telefono" [(ngModel)]="numeroTelefono" required>
-    </p>
+<div class="container">
+    <form (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="form-group">
+            <label for="tipo_documento">Tipo de documento:</label>
+            <select class="form-control" id="tipo_documento" name="tipo_documento" required [(ngModel)]="tipoDocumento">
+                <option value="">Selecciona una opción</option>
+                <option value="cedula">Cédula</option>
+                <option value="pasaporte">Pasaporte</option>
+            </select>
+            <input type="text" class="form-control mt-2" placeholder="Documento" name="documento" [(ngModel)]="documento" required>
+        </div>
 
-    <p>
-        <label for="fechaNacimiento">Fecha de Nacimiento: </label>
-        <input type="date" placeholder="Fecha de Nacimiento" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
-    </p>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" placeholder="Nombre completo" name="nombre" [(ngModel)]="nombre" required>
+        </div>
 
-    <button type="submit" class="proceder-pago" [disabled]="!form.valid">
-        Proceder al pago
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" placeholder="Apellido completo" name="apellido" [(ngModel)]="apellido" required>
+        </div>
+
+        <div class="form-group">
+            <label for="correo_electronico">Correo electrónico:</label>
+            <input type="email" class="form-control" placeholder="Correo Electrónico" name="correo_electronico" [(ngModel)]="correoElectronico" required>
+        </div>
+
+        <div class="form-group">
+            <label for="numero_telefono">Número de teléfono:</label>
+            <input type="tel" class="form-control" placeholder="Número de teléfono" name="numero_telefono" [(ngModel)]="numeroTelefono" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" placeholder="Fecha de Nacimiento" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            Proceder al pago
+        </button>
+    </form>
+
+    <button class="btn btn-secondary mt-3" [routerLink]="['/search']">
+        Regresar
     </button>
-</form>
-
-<button class="seleccionar-habitaciones" [routerLink]="['/search']">
-    Regresar
-</button>
+</div>

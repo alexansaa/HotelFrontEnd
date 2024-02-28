@@ -36,15 +36,6 @@ export class PagoComponent implements OnInit {
 
     public payPalConfig?: IPayPalConfig;
 
-    // Variables para almacenar los datos recuperados
-    // checkinDate: string = '';
-    // checkoutDate: string = '';
-    // roomId: number = 0;
-    // roomType: string = '';
-    // individualPrice: number = 0;
-    // numberOfBeds: number = 0;
-    // totalPeople: number = 0;
-
     constructor(private router: Router, private http: HttpClient, private apiService: ApiService) { } // Inyecta HttpClient aquí
 
     ngOnInit(): void {
@@ -91,7 +82,8 @@ export class PagoComponent implements OnInit {
             rooms: this.combinacion.rooms.map((room: Room) => (room._id)),
             // this.rooms.map((room, index) => (room._id === firstRoomId ? index : null)).filter(index => index !== null);
             // rooms: this.combinacion.rooms,
-            total_price: this.costoCombinacion
+            total_price: this.costoCombinacion,
+            capturedId: ""
         }
 
 
@@ -135,6 +127,12 @@ export class PagoComponent implements OnInit {
             onApprove: (data, actions) => {
                 console.log('onApprove - transaction was approved, but not authorized', data, actions);
                 // Aquí puedes manejar la aprobación antes de la autorización si es necesario
+                actions.order.capture().then((details: any) => {
+                    // Captura exitosa, puedes acceder al ID de la transacción en details.id
+                    bookingData.capturedId = details.id;
+                    console.log('ID del pago capturado:', bookingData.capturedId);
+                    // Ahora puedes realizar cualquier operación adicional que necesites con el ID del pago
+                });
             },
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization - transacción completada', data);
