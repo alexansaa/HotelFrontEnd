@@ -25,6 +25,8 @@ export class PopUpUpdateReservationComponent implements OnInit{
   maxCapacity: number = 0;
   minCapacity: number = 0;
   minDate = new Date().toISOString().slice(0, 10);
+  startDate = new Date().toISOString().slice(0, 10);
+  endDate = new Date().toISOString().slice(0, 10);
 
   constructor(
     public dialogRef: MatDialogRef<PopUpUpdateReservationComponent>,
@@ -45,10 +47,9 @@ export class PopUpUpdateReservationComponent implements OnInit{
     this.reservation.rooms.forEach((roomNumber: number) => {
       this.minCapacity += 1;
       
-      this.apiService.selectRoom(roomNumber.toString()).subscribe({
+      this.apiService.infoRoom(roomNumber.toString()).subscribe({
         next: (response: Room) => {
-          console.log("get capacity: " + response.people_capacity);
-          
+          // console.log("get capacity: " + response.people_capacity);
           this.maxCapacity += response.people_capacity;
         }
       });
@@ -74,7 +75,9 @@ export class PopUpUpdateReservationComponent implements OnInit{
   }
 
   onUserUpdate() {
-    
+    this.reservation.rooms.forEach((room: Room) => {
+      
+    });
   }
 
   onUserDelete() {
@@ -104,10 +107,10 @@ export class PopUpUpdateReservationComponent implements OnInit{
   }
 
   dateCheckInChange(event: any) {
-    console.log(event.target.value);
+    this.startDate = event.target.value;
   }
 
   dateCheckOutChange(event: any) {
-    console.log(event.target.value);
+    this.endDate = event.target.value;
   }
 }

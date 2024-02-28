@@ -87,6 +87,18 @@ export class ApiService {
     return this.http.post<Room>(apiUrl, options);
   }
 
+  infoRoom(roomId: string): Observable<Room> {
+    const apiUrl = 'http://localhost:5000/room/' + roomId;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.get<Room>(apiUrl, options);
+  }
+
   updateRoom(room: RoomOccupancy): Observable<RoomOccupancy> {
     // const apiUrl = 'https://backend-hr.onrender.com/rooms/' + room._id;
     const apiUrl = 'http://localhost:5000/rooms/' + room._id;

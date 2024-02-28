@@ -127,20 +127,20 @@ export class SearchComponent {
   selectRoom(roomsCombination: RoomCombination, Costo: any): void {
     console.log("Enviando datos de habitacion seleccionada", roomsCombination);
 
-    let roomsIds = [];
-    for (let i = 0; i < roomsCombination.rooms.length; i++) {
-      roomsIds.push(roomsCombination.rooms[i]._id);
-    }
+    // let roomsIds = [];
+    // for (let i = 0; i < roomsCombination.rooms.length; i++) {
+    //   roomsIds.push(roomsCombination.rooms[i]._id);
+    // }
 
-    const costoString = JSON.stringify(Costo);
-    localStorage.setItem('costoCombinacion', costoString);
+    // const costoString = JSON.stringify(Costo);
+    // localStorage.setItem('costoCombinacion', costoString);
 
-    const combinacionHabitaciones = JSON.stringify(roomsCombination);
-    localStorage.setItem('combinacion', combinacionHabitaciones);
+    // const combinacionHabitaciones = JSON.stringify(roomsCombination);
+    // localStorage.setItem('combinacion', combinacionHabitaciones);
 
-    console.log(combinacionHabitaciones)
+    // console.log(combinacionHabitaciones)
 
-    console.log(roomsIds);
-    console.log(costoString);
+    // console.log(roomsIds);
+    // console.log(costoString);
   }
 }
