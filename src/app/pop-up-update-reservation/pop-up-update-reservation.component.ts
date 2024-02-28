@@ -25,8 +25,10 @@ export class PopUpUpdateReservationComponent implements OnInit{
   maxCapacity: number = 0;
   minCapacity: number = 0;
   minDate = new Date().toISOString().slice(0, 10);
-  startDate = new Date().toISOString().slice(0, 10);
-  endDate = new Date().toISOString().slice(0, 10);
+  myStartDate = new Date().toISOString().slice(0, 10);
+  myEndDate = new Date().toISOString().slice(0, 10);
+  userStartDate = new Date().toISOString().slice(0, 10);
+  userEndDate = new Date().toISOString().slice(0, 10);
 
   constructor(
     public dialogRef: MatDialogRef<PopUpUpdateReservationComponent>,
@@ -75,9 +77,59 @@ export class PopUpUpdateReservationComponent implements OnInit{
   }
 
   onUserUpdate() {
-    this.reservation.rooms.forEach((room: Room) => {
-      
+    let start_Date = Date.parse(this.userStartDate);
+    let end_Date = Date.parse(this.userEndDate);
+
+    const myRooms: Room[] = [];
+
+    this.reservation.rooms.forEach((roomNumber: number) => {
+      this.apiService.infoRoom(roomNumber.toString()).subscribe({
+        next: (response: Room) => {
+          response.free = true;
+          response.occupancy.forEach((ocupDate) => {
+            const compare_start_date = Date.parse(ocupDate[0]);
+            const compare_end_date = Date.parse(ocupDate[1]);
+
+            if (compare_start_date === Date.parse(this.myStartDate) && compare_end_date === Date.parse(this.myEndDate)) {
+              return;
+            }
+
+            if (compare_start_date < start_Date && compare_end_date < start_Date) {
+              response.free = true;
+            } else if (compare_start_date > end_Date && compare_end_date > end_Date) {
+              response.free = true;
+            } else {
+              response.free = false;
+              return;
+            }
+          });
+          myRooms.push(response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error fetching data:', error);
+        }
+      })
     });
+
+    myRooms.forEach((room: Room) => {
+      if (room.free === false) {
+        alert("Habitaciones no disponibles para la fechas indicadas!");
+        return;
+      }
+    })
+
+    this.reservation.checkin_date = new Date(Date.parse(this.userStartDate));
+    this.reservation.checkout_date = new Date(Date.parse(this.userEndDate));
+
+    this.apiService.reservationUpdate(this.reservation).subscribe({
+      next: (response: Reservation) => {
+        console.log("Reservacion actualizada con exito");
+        console.log(response);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data:', error);
+      }
+    })
   }
 
   onUserDelete() {
@@ -107,10 +159,10 @@ export class PopUpUpdateReservationComponent implements OnInit{
   }
 
   dateCheckInChange(event: any) {
-    this.startDate = event.target.value;
+    this.userStartDate   = event.target.value;
   }
 
   dateCheckOutChange(event: any) {
-    this.endDate = event.target.value;
+    this.userEndDate = event.target.value;
   }
 }
