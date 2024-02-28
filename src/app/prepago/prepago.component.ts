@@ -32,26 +32,19 @@ export class PrepagoComponent implements OnInit {
     console.log('documento', this.documento);
     console.log('nombre', this.nombre);
 
-    // if (!this.nombre || !this.apellido || !this.correoElectronico || !this.numeroTelefono || !this.fechaNacimiento) {
-    //   alert('Por favor completa todos los campos.');
-    //   return;
-    // }
+
     console.log('fechaNacimiento', this.fechaNacimiento);
     const today = new Date();
     const birthDate = new Date(this.fechaNacimiento);
     let age = today.getFullYear() - birthDate.getFullYear();
     console.log('age', age);
-    // const month = today.getMonth() - birthDate.getMonth();
-    // if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-    //   age--;
-    // }
+  
 
     if (age < 18) {
       alert('Debes ser mayor de 18 años para continuar.');
       return;
     }
 
-    // Aquí puedes agregar la lógica para enviar el formulario al backend o realizar otras acciones necesarias
     this.router.navigate(['/pago']);
 
     const datosUsuario = {
