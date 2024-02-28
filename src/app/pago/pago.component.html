@@ -1,41 +1,43 @@
 <div class="container">
-  <table class="table">
-      <tbody>
-          <tr>
-              <th scope="row">Fecha de inicio</th>
-              <td>{{ fechas.start_date }}</td>
-          </tr>
-          <tr>
-              <th scope="row">Fecha de fin</th>
-              <td>{{ fechas.end_date }}</td>
-          </tr>
-          <tr>
-              <th scope="row">Número de personas</th>
-              <td>{{ fechas.num_people }}</td>
-          </tr>
-          <tr>
-              <th scope="row">Número de habitaciones</th>
-              <td>{{ fechas.num_rooms }}</td>
-          </tr>
-          <tr>
-              <th scope="row">Costo total</th>
-              <td>{{ costoCombinacion }}</td>
-          </tr>
-          <tr>
-              <th scope="row">Números de habitaciones</th>
-              <td>
-                  <ul>
-                      <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
-                  </ul>
-              </td>
-          </tr>
-      </tbody>
-  </table>
+  <div class="table-responsive">
+      <table class="table">
+          <tbody>
+              <tr>
+                  <th scope="row">Fecha de inicio</th>
+                  <td>{{ fechas.start_date }}</td>
+              </tr>
+              <tr>
+                  <th scope="row">Fecha de fin</th>
+                  <td>{{ fechas.end_date }}</td>
+              </tr>
+              <tr>
+                  <th scope="row">Número de personas</th>
+                  <td>{{ fechas.num_people }}</td>
+              </tr>
+              <tr>
+                  <th scope="row">Número de habitaciones</th>
+                  <td>{{ fechas.num_rooms }}</td>
+              </tr>
+              <tr>
+                  <th scope="row">Costo total</th>
+                  <td>{{ costoCombinacion }}</td>
+              </tr>
+              <tr>
+                  <th scope="row">Números de habitaciones</th>
+                  <td>
+                      <ul>
+                          <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
+                      </ul>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
   <div class="text-center">
       <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
   </div>
 
-  <button class="btn btn-primary seleccionar-habitaciones" [routerLink]="['/search']">
+  <button class="btn btn-primary btn-block mb-3 seleccionar-habitaciones" [routerLink]="['/search']">
       Regresar
   </button>
 </div>
