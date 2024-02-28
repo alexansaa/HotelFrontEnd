@@ -10,7 +10,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   fetchData(): Observable<SearchRoomData[]> {
-    const apiUrl = 'https://backend-hr.onrender.com/'; // Replace with your API URL
+    // const apiUrl = 'https://backend-hr.onrender.com/'; // Replace with your API URL
+    const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
     let ans = this.http.get<SearchRoomData[]>(apiUrl);
     console.log(ans);
     return ans;
@@ -22,7 +23,8 @@ export class ApiService {
     end_date: Date,
     num_rooms: number
   }): Observable<RoomCombination[]> {
-    const apiUrl = 'https://backend-hr.onrender.com/find-rooms';
+    // const apiUrl = 'https://backend-hr.onrender.com/find-rooms';
+    const apiUrl = 'http://localhost:5000/find-rooms';
 
     const options = {
       headers: new HttpHeaders({
@@ -34,7 +36,8 @@ export class ApiService {
   }
 
   allBookings(): Observable<Reservation[]> {
-    const apiUrl = 'https://backend-hr.onrender.com/admin/bookings';
+    // const apiUrl = 'https://backend-hr.onrender.com/admin/bookings';
+    const apiUrl = 'http://localhost:5000/admin/bookings';
 
     const options = {
       headers: new HttpHeaders({
@@ -46,7 +49,8 @@ export class ApiService {
   }
 
   allRooms(): Observable<Room[]> {
-    const apiUrl = 'https://backend-hr.onrender.com/rooms';
+    // const apiUrl = 'https://backend-hr.onrender.com/rooms';
+    const apiUrl = 'http://localhost:5000/rooms';
 
     const options = {
       headers: new HttpHeaders({
@@ -58,7 +62,8 @@ export class ApiService {
   }
 
   deleteRoom(id: string): Observable<void> {
-    const apiUrl = 'https://backend-hr.onrender.com/rooms/${id}';
+    // const apiUrl = 'https://backend-hr.onrender.com/rooms/${id}';
+    const apiUrl = 'http://localhost:5000/rooms/${id}';
 
     const options = {
       headers: new HttpHeaders({
@@ -70,7 +75,8 @@ export class ApiService {
   }
 
   selectRoom(id: string): Observable<Room> {
-    const apiUrl = 'https://backend-hr.onrender.com/rooms/${id}';
+    // const apiUrl = 'https://backend-hr.onrender.com/rooms/${id}';
+    const apiUrl = 'http://localhost:5000/rooms/${id}';
 
     const options = {
       headers: new HttpHeaders({
@@ -82,7 +88,8 @@ export class ApiService {
   }
 
   updateRoom(room: RoomOccupancy): Observable<RoomOccupancy> {
-    const apiUrl = 'https://backend-hr.onrender.com/rooms/' + room._id;
+    // const apiUrl = 'https://backend-hr.onrender.com/rooms/' + room._id;
+    const apiUrl = 'http://localhost:5000/rooms/' + room._id;
 
     const options = {
       headers: new HttpHeaders({
@@ -94,7 +101,8 @@ export class ApiService {
   }
 
   reservationDelete(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'https://backend-hr.onrender.com/admin/bookings/' + reservation._id;
+    // const apiUrl = 'https://backend-hr.onrender.com/admin/bookings/' + reservation._id;
+    const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
 
     const options = {
       headers: new HttpHeaders({
@@ -106,7 +114,8 @@ export class ApiService {
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {
-    const apiUrl = 'https://backend-hr.onrender.com/admin/bookings/' + reservation._id;
+    // const apiUrl = 'https://backend-hr.onrender.com/admin/bookings/' + reservation._id;
+    const apiUrl = 'http://localhost:5000/admin/bookings/' + reservation._id;
 
     const options = {
       headers: new HttpHeaders({
@@ -118,7 +127,8 @@ export class ApiService {
   }
 
   reservationSearch(reservationId: string): Observable<Reservation> {
-    const apiUrl = 'https://backend-hr.onrender.com/user/bookings/' + reservationId;
+    // const apiUrl = 'https://backend-hr.onrender.com/user/bookings/' + reservationId;
+    const apiUrl = 'http://localhost:5000/user/bookings/' + reservationId;
 
     const options = {
       headers: new HttpHeaders({
@@ -131,7 +141,8 @@ export class ApiService {
   }
 
   reservationCreate(booking: Booking): Observable<Booking> {
-    const apiUrl = 'https://backend-hr.onrender.com/user/bookings';
+    // const apiUrl = 'https://backend-hr.onrender.com/user/bookings';
+    const apiUrl = 'http://localhost:5000/user/bookings';
 
     const options = {
       headers: new HttpHeaders({
