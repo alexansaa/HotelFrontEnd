@@ -76,7 +76,7 @@ export class ApiService {
 
   selectRoom(id: string): Observable<Room> {
     // const apiUrl = 'https://backend-hr.onrender.com/rooms/${id}';
-    const apiUrl = 'http://localhost:5000/rooms/${id}';
+    const apiUrl = 'http://localhost:5000/rooms/' + id;
 
     const options = {
       headers: new HttpHeaders({

@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Reservation } from '../models/MyData';
+import { Reservation, Room } from '../models/MyData';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,22 +22,40 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PopUpUpdateReservationComponent implements OnInit{
   reservation!: Reservation;
+  maxCapacity: number = 0;
+  minCapacity: number = 0;
+  minDate = new Date().toISOString().slice(0, 10);
 
   constructor(
     public dialogRef: MatDialogRef<PopUpUpdateReservationComponent>,
     @Inject(MAT_DIALOG_DATA) public reservationData: Reservation,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
       this.reservation = this.reservationData;
+      this.getCapacity();
   }
 
   closePopUp() {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  getCapacity() {
+    this.reservation.rooms.forEach((roomNumber: number) => {
+      this.minCapacity += 1;
+      
+      this.apiService.selectRoom(roomNumber.toString()).subscribe({
+        next: (response: Room) => {
+          console.log("get capacity: " + response.people_capacity);
+          
+          this.maxCapacity += response.people_capacity;
+        }
+      });
+    });
+  }
+
+  onAdminUpdate() {
     console.log(this.reservation._id);
     this.apiService.reservationUpdate(this.reservation).subscribe({
       next: (response: Reservation) => {
@@ -53,5 +71,43 @@ export class PopUpUpdateReservationComponent implements OnInit{
         // Display an error message to the user
       }
     });
+  }
+
+  onUserUpdate() {
+    
+  }
+
+  onUserDelete() {
+    this.apiService.reservationDelete(this.reservation).subscribe({
+      next: () => {
+        console.log('Reservation deleted!');
+        this.closePopUp();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data: ', error);
+      }
+    })
+  }
+
+  guestQtyChange(event: any) {
+    console.log(event.target.value);
+    console.log("max capacity: " + this.maxCapacity);
+    console.log("min capacity: " + this.minCapacity);
+    
+    
+    if(event.target.value > this.maxCapacity) {
+      event.target.value = this.maxCapacity;
+    }
+    if(event.target.value < this.minCapacity) {
+      event.target.value = this.minCapacity;
+    }
+  }
+
+  dateCheckInChange(event: any) {
+    console.log(event.target.value);
+  }
+
+  dateCheckOutChange(event: any) {
+    console.log(event.target.value);
   }
 }

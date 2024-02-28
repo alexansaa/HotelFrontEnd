@@ -85,7 +85,7 @@ export class SearchComponent {
       return;
     }
 
-    const datosBusqueda = {
+    const datosBusqueda: SearchRoomData = {
       num_people: this.numeroPersonas,
       start_date: this.startDate,
       end_date: this.endDate,
@@ -131,12 +131,11 @@ export class SearchComponent {
     for (let i = 0; i < roomsCombination.rooms.length; i++) {
       roomsIds.push(roomsCombination.rooms[i]._id);
     }
-    var romspriceFinal = Costo
-    const costoString = JSON.stringify(romspriceFinal);
+
+    const costoString = JSON.stringify(Costo);
     localStorage.setItem('costoCombinacion', costoString);
 
-    var combinacion = roomsCombination
-    const combinacionHabitaciones = JSON.stringify(combinacion);
+    const combinacionHabitaciones = JSON.stringify(roomsCombination);
     localStorage.setItem('combinacion', combinacionHabitaciones);
 
     console.log(combinacionHabitaciones)

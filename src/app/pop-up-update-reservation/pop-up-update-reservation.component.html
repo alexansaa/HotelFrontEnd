@@ -1,7 +1,8 @@
 <div class="reservation_modification_popup">
     <h3>Edit Reservation</h3>
 
-    <form #reservationUpdateForm="ngForm" (ngSubmit)="onSubmit()">
+    <!-- <form #reservationUpdateForm="ngForm" (ngSubmit)="onSubmit()"> -->
+    <form #reservationUpdateForm="ngForm">
         <div class="reservationUpdateFormData">
             <div>
                 <div class="popup_label_field">
@@ -23,17 +24,16 @@
                 <div>
                     <label for="checkIn">Check In</label>
 
-
                     <div *ngIf="this.reservation.admin; else elseBotonBlockIn">
                         <mat-form-field>
-                            <input matInput type="text" id="checkIn" name="checkIn" required
-                                [(ngModel)]="reservationData.checkin_date">
+                            <input matInput type="date" id="checkIn" name="checkIn" [min]="minDate" required
+                                [(ngModel)]="reservationData.checkin_date" (change)="dateCheckInChange($event)">
                         </mat-form-field>
                     </div>
                     <ng-template #elseBotonBlockIn>
                         <mat-form-field>
-                            <input matInput type="text" id="checkIn" name="checkIn" required
-                                [(ngModel)]="reservationData.checkin_date" disabled>
+                            <input matInput type="date" id="checkIn" name="checkIn" [min]="minDate" required
+                                [(ngModel)]="reservationData.checkin_date" (change)="dateCheckInChange($event)">
                         </mat-form-field>
                     </ng-template>
                 </div>
@@ -45,14 +45,14 @@
 
                     <div *ngIf="this.reservation.admin; else elseBotonBlockOut">
                         <mat-form-field>
-                            <input matInput type="text" id="checkOut" name="checkOut" required
-                                [(ngModel)]="reservationData.checkout_date">
+                            <input matInput type="date" id="checkOut" name="checkOut" required
+                                [(ngModel)]="reservationData.checkout_date" (change)="dateCheckOutChange($event)">
                         </mat-form-field>
                     </div>
                     <ng-template #elseBotonBlockOut>
                         <mat-form-field>
-                            <input matInput type="text" id="checkOut" name="checkOut" required
-                                [(ngModel)]="reservationData.checkout_date" disabled>
+                            <input matInput type="date" id="checkOut" name="checkOut" required
+                                [(ngModel)]="reservationData.checkout_date" (change)="dateCheckOutChange($event)">
                         </mat-form-field>
                     </ng-template>
 
@@ -66,13 +66,13 @@
                     <div *ngIf="this.reservation.admin; else elseBotonBlockGuest">
                         <mat-form-field>
                             <input matInput type="text" id="qty_guests" name="qty_guests" required
-                                [(ngModel)]="reservationData.qty_guests">
+                                [(ngModel)]="reservationData.qty_guests" (change)="guestQtyChange($event)">
                         </mat-form-field>
                     </div>
                     <ng-template #elseBotonBlockGuest>
                         <mat-form-field>
                             <input matInput type="text" id="qty_guests" name="qty_guests" required
-                                [(ngModel)]="reservationData.qty_guests" disabled>
+                                [(ngModel)]="reservationData.qty_guests" (change)="guestQtyChange($event)">
                         </mat-form-field>
                     </ng-template>
 
@@ -115,9 +115,11 @@
         </div>
 
         <div *ngIf="this.reservation.admin; else elseBotonBlock">
-            <button type="button" class="btn btn-primary btn-position" (click)="onSubmit()">Actualizar</button>
+            <button type="button" class="btn btn-primary btn-position" (click)="onAdminUpdate()">Actualizar</button>
         </div>
         <ng-template #elseBotonBlock>
+            <button type="button" class="btn btn-primary btn-position" (click)="onUserUpdate()">Modificar</button>
+            <button type="button" class="btn btn-primary btn-position" (click)="onUserDelete()">Eliminar</button>
         </ng-template>
     </form>
 </div>
