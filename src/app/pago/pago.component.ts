@@ -148,8 +148,8 @@ export class PagoComponent implements OnInit {
                     body: "Gracias por su reserva en Hotel Copo de Nieve.\nDetalles de su reserva:\nId Reserva:" + bookingData._id + "\nFecha de Checkin: " + bookingData.checkin_date + "\nFecha de Checkout: " + bookingData.checkout_date + "\nHabitaciones: " + bookingData.rooms + "\nNúmero de huéspedes: " + bookingData.qty_guests + "\nPrecio Total: " + costoRecuperado,
                     subject: "Confirmación de Reserva Hotel Copo de Nieve"
                 };
-                // this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
-                this.http.post('http://localhost:5000/send_email', emailData).subscribe({
+                this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
+                // this.http.post('http://localhost:5000/send_email', emailData).subscribe({
                     next: (response) => {
                         console.log('Correo de confirmación enviado', response);
                         this.loading = false;

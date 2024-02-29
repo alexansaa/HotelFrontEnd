@@ -57,6 +57,8 @@ export class EditComponent implements OnInit {
     this.precio = this.reservation.total_price;
     this.paypalId = this.reservation.capturedId;
 
+    this.getCapacity();
+
   }
 
   getCapacity() {
