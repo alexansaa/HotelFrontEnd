@@ -49,6 +49,7 @@ export class ConsultComponent {
           // this.openPopUp(this.reservation)
           const myReservationJSON = JSON.stringify(response)
           localStorage.setItem('reservationConsult', myReservationJSON);
+          this.router.navigate(['/edit']);
           // console.log(myReservationJSON);
 
         },

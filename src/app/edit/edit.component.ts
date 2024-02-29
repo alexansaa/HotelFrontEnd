@@ -60,6 +60,7 @@ export class EditComponent implements OnInit {
     this.getCapacity();
 
   }
+  
 
   getCapacity() {
     this.reservation.rooms.forEach((roomNumber: number) => {
