@@ -20,6 +20,7 @@ import { ReservationStatusComponent } from './reservation-status/reservation-sta
 import { ReservationUpdateComponent } from './reservation-update/reservation-update.component';
 import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
 import { PopUpUpdateReservationComponent } from './pop-up-update-reservation/pop-up-update-reservation.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @Component({
@@ -47,7 +48,8 @@ import { PopUpUpdateReservationComponent } from './pop-up-update-reservation/pop
     ReservationStatusComponent,
     ReservationUpdateComponent,
     ShowRoomsComponent,
-    PopUpUpdateReservationComponent
+    PopUpUpdateReservationComponent,
+    EditComponent
   ],
 
   templateUrl: './app.component.html',

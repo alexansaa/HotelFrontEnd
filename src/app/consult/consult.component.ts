@@ -50,7 +50,7 @@ export class ConsultComponent {
           const myReservationJSON = JSON.stringify(response)
           localStorage.setItem('reservationConsult', myReservationJSON);
           // console.log(myReservationJSON);
-          this.router.navigate(['/reservationPopUp']);
+
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error fetching data:', error);

@@ -1,16 +1,16 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Payload, Reservation, Room, User } from '../models/MyData';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../rooms_services/api.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-pop-up-update-reservation',
+  selector: 'app-edit',
   standalone: true,
   imports: [
     FormsModule,
@@ -18,10 +18,11 @@ import { Router } from '@angular/router';
     MatInputModule,
     NgIf
   ],
-  templateUrl: './pop-up-update-reservation.component.html',
-  styleUrl: './pop-up-update-reservation.component.css'
+  templateUrl: './edit.component.html',
+  styleUrl: './edit.component.css'
 })
-export class PopUpUpdateReservationComponent implements OnInit {
+export class EditComponent implements OnInit {
+
   reservation!: Reservation;
   maxCapacity: number = 0;
   minCapacity: number = 0;
@@ -35,16 +36,20 @@ export class PopUpUpdateReservationComponent implements OnInit {
 
   constructor(
     //public dialogRef: MatDialogRef<PopUpUpdateReservationComponent>,
-    @Inject(MAT_DIALOG_DATA) public reservationData: Reservation,
+    //public reservationData: Reservation,
     private apiService: ApiService,
     private http: HttpClient,
     private router: Router,
     //private dialog: MatDialog
   ) { }
 
-
   ngOnInit(): void {
-    this.reservation = this.reservationData;
+
+    const reservationString = localStorage.getItem('reservationConsult');
+    if (reservationString) {
+      this.reservation = JSON.parse(reservationString);
+    }
+    //this.reservation = this.reservation;
     this.myStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);
     this.myEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0, 10);
     this.userStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);
@@ -52,15 +57,7 @@ export class PopUpUpdateReservationComponent implements OnInit {
     this.precio = this.reservation.total_price;
     this.paypalId = this.reservation.capturedId;
 
-    // console.log("myStartDate: " + this.myStartDate);
-    // console.log("myEndDate: " + this.myEndDate);
-    // console.log("myStartDate: " + Date.parse(this.myStartDate));
-    // console.log("myEndDate: " + Date.parse(this.myEndDate));
-    // console.log("Mis rooms: " + this.reservation.rooms);
-
-    this.getCapacity();
   }
-
 
   getCapacity() {
     this.reservation.rooms.forEach((roomNumber: number) => {
@@ -251,4 +248,5 @@ export class PopUpUpdateReservationComponent implements OnInit {
   dateCheckOutChange(event: any) {
     this.userEndDate = event.target.value;
   }
+
 }

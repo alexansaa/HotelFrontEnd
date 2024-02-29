@@ -1,0 +1,84 @@
+<div class="modal-dialog reservation_modification_popup container">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Reservation</h3>
+
+        </div>
+
+        <form #reservationUpdateForm="ngForm">
+            <div class="row reservationUpdateFormData">
+                <div class="col-md-6">
+                    <div class="form-group popup_label_field">
+                        <label for="id">Id</label>
+
+                        <input type="text" class="form-control" id="id" name="id" required [(ngModel)]="reservation._id"
+                            disabled>
+                    </div>
+
+                    <div class="form-group popup_label_field">
+                        <label for="userId">User Id</label>
+
+                        <input type="text" class="form-control" id="userId" name="userId" required
+                            [(ngModel)]="reservation.user_id" disabled>
+                    </div>
+
+                    <div class="form-group popup_label_field">
+                        <label for="checkIn">Check In</label>
+
+                        <input type="date" class="form-control" id="checkIn" name="checkIn" [min]="minDate" required
+                            [(ngModel)]="reservation.checkin_date" (change)="dateCheckInChange($event)">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group popup_label_field">
+                        <label for="checkOut">Check Out</label>
+
+                        <input type="date" class="form-control" id="checkOut" name="checkOut" [min]="minDate" required
+                            [(ngModel)]="reservation.checkout_date" (change)="dateCheckOutChange($event)">
+                    </div>
+
+                    <div class="form-group popup_label_field">
+                        <label for="qty_guests">Cantidad de Personas</label>
+
+                        <input type="text" class="form-control" id="qty_guests" name="qty_guests" required
+                            [(ngModel)]="reservation.qty_guests" (change)="guestQtyChange($event)">
+                    </div>
+
+                    <div class="form-group popup_label_field">
+                        <label for="rooms">Numero de cuartos</label>
+
+                        <input type="text" class="form-control" id="rooms" name="rooms" required
+                            [(ngModel)]="reservation.rooms" disabled="!reservation.admin">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group popup_label_field">
+                <label for="total">Total</label>
+
+                <input type="text" class="form-control" id="total" name="total" required
+                    [(ngModel)]="reservation.total_price" disabled="!reservation.admin">
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div *ngIf="reservation.admin; else elseBotonBlock">
+                        <button type="button" class="btn btn-primary btn-position btn-edit"
+                            (click)="onAdminUpdate()">Actualizar</button>
+                    </div>
+                    <ng-template #elseBotonBlock>
+                        <button type="button" class="btn btn-primary btn-position btn-modify"
+                            (click)="onUserUpdate()">Modificar</button>
+                        <button type="button" class="btn btn-primary btn-position btn-delete"
+                            (click)="onUserDelete()">Eliminar</button>
+                    </ng-template>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
