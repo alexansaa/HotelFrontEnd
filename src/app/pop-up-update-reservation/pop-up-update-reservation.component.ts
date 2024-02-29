@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Payload, Reservation, Room, User } from '../models/MyData';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +38,8 @@ export class PopUpUpdateReservationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public reservationData: Reservation,
     private apiService: ApiService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +60,18 @@ export class PopUpUpdateReservationComponent implements OnInit {
 
     this.getCapacity();
   }
+  openEditReservationPopup() {
+    this.dialog.open(PopUpUpdateReservationComponent, {
+      // Optional configuration options for the dialog like width, height, etc.
+    });
+  }
+
+  closeEditReservationPopup() {
+    this.dialogRef.close(); // Assuming you have 'dialogRef' injected in PopUpUpdateReservationComponent
+  }
+  
+  
+  
 
   closePopUp() {
     this.dialogRef.close();
