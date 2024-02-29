@@ -54,7 +54,8 @@ export interface Reservation {
     qty_guests: number,
     rooms: [],
     total_price: number,
-    admin: boolean
+    admin: boolean,
+    capturedId: string
 }
 
 export interface Booking {
