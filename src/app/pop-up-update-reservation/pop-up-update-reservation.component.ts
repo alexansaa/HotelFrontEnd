@@ -40,10 +40,13 @@ export class PopUpUpdateReservationComponent implements OnInit{
       this.reservation = this.reservationData;
       this.myStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);
       this.myEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0,10);
+      this.userStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);
+      this.userEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0,10);
 
       console.log("myStartDate: " + this.myStartDate);
       console.log("myEndDate: " + this.myEndDate);
-      
+      console.log("myStartDate: " + Date.parse(this.myStartDate));
+      console.log("myEndDate: " + Date.parse(this.myEndDate));
 
       this.getCapacity();
   }
@@ -95,63 +98,19 @@ export class PopUpUpdateReservationComponent implements OnInit{
         const response:any = await this.apiService.infoRoom(roomNumber.toString()).toPromise();
         myRooms.push(response);
       }
+      this.reservation.total_price = this.costCalculation(myRooms);
     } catch (error) {
       console.error('Error fetching room date: ', error);
     }
     
-    if(await myRooms.length === 0) {
+    if(myRooms.length === 0) {
       console.log("rooms arreglo vacio");
       return;
     } else {
       console.log("myRooms: " + myRooms);
     }
-
-    myRooms.forEach(async(room: Room) => {
-      room.free = true;
-      for (const ocupDate of room.occupancy) {
-        const compare_start_date = Date.parse(ocupDate[0]);
-        const compare_end_date = Date.parse(ocupDate[1]);
-
-        console.log("Room: " + room._id);
-        console.log("Compare start date: " + ocupDate[0]);
-        console.log("Compare end date: " + ocupDate[1]);
-        console.log("my start date: " + this.myStartDate);
-        console.log("my end date: " + this.myEndDate);
-        console.log("User start date: " + this.userStartDate);
-        console.log("User end date: " + this.userEndDate);
-        console.log("---------\n\n");
-        
-        
-
-        if (compare_start_date === Date.parse(this.myStartDate) && compare_end_date === Date.parse(this.myEndDate)) {
-          console.log("returning for just already user taken date");
-
-          return;
-        }
-
-        if (start_Date < compare_start_date && end_Date < compare_start_date) {
-          room.free = true;
-        } else if (start_Date > compare_end_date && end_Date > compare_end_date) {
-          room.free = true;
-        } else {
-          room.free = false;
-          return;
-        }
-      }
-    });
-
-    myRooms.forEach((room: Room) => {
-      if (room.free === false) {
-        alert("Habitaciones no disponibles para la fechas indicadas!");
-        return;
-      }
-    })
     
-    this.reservation.total_price = this.costCalculation(myRooms);
-
-    console.log(this.reservation);
-    
-
+    // modificacion directa a backend sin revisar paypal
     this.apiService.reservationUpdate(this.reservation).subscribe({
       next: (response: Reservation) => {
         console.log("Reservacion actualizada con exito");
@@ -160,20 +119,23 @@ export class PopUpUpdateReservationComponent implements OnInit{
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching data:', error);
       }
-    })
+    });
   }
 
   costCalculation (rooms: Room[]) {
-    rooms.forEach((room: Room) => {
-      console.log(room);
-    })
+    // rooms.forEach((room: Room) => {
+    //   console.log("calculator\n");
+      
+    //   console.log(room);
+    // })
     const roomsprice = rooms.map(room => room.price); // Obtener precios de las habitaciones
     const checkinDate = new Date(this.userStartDate); // Fecha de check-in
     const checkoutDate = new Date(this.userEndDate); // Fecha de check-out
+    
     const numberOfDays = (checkoutDate.getTime() - checkinDate.getTime()) / (1000 * 3600 * 24); // Número de días de estadía
+
     const roomspriceFinal = roomsprice.reduce((total, price) => total + price * numberOfDays, 0); // Calcular el costo total multiplicando por el número de días
     const totalValue = parseFloat(roomspriceFinal.toFixed(2));
-    console.log("total value: " + totalValue);
     
     return totalValue
   }
