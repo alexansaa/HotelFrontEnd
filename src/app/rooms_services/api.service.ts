@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Booking, Reservation, Room, RoomCombination, RoomOccupancy, SearchRoomData } from '../models/MyData';
+import { Booking, Reservation, Room, RoomCombination, RoomOccupancy, SearchRoomData, User } from '../models/MyData';
 
 @Injectable({
   providedIn: 'root' // Adjust provider as needed
@@ -87,6 +87,30 @@ export class ApiService {
     return this.http.post<Room>(apiUrl, options);
   }
 
+  createUser(user: User): Observable<User> {
+    const apiUrl = 'http://localhost:5000/user/create';
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<User>(apiUrl, user, options);
+  }
+
+  infoUser(id: string): Observable<User> {
+    const apiUrl = 'http://localhost:5000/user/' + id;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.get<User>(apiUrl, options);
+  }
+
   infoRoom(roomId: string): Observable<Room> {
     const apiUrl = 'http://localhost:5000/room/' + roomId;
 
@@ -164,6 +188,8 @@ export class ApiService {
 
     return this.http.post<Booking>(apiUrl, booking, options);
   }
+
+
 
 
 }

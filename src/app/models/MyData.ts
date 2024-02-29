@@ -69,3 +69,13 @@ export interface Booking {
     rooms: [],
     total_price: number,
 }
+
+export interface User {
+    _id: string,
+    type_id: string,
+    name: string,
+    lastname: string,
+    email: string,
+    phone_number: string, 
+    birth: string, 
+}
