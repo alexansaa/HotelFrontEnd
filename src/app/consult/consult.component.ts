@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/pop-up-update-reservation.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-consult',
@@ -18,7 +18,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     NgIf,
-    RouterModule,
+    RouterLink,
     PopUpUpdateReservationComponent
   ],
   templateUrl: './consult.component.html',
@@ -33,10 +33,12 @@ export class ConsultComponent {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private router: Router,
     // private updateReservatinoPopUp: MatDialog
   ) { }
 
   search() {
+
     console.log(this.reservationId);
     if (this.reservationId) { // Check if reservationId has a value
       this.apiService.reservationSearch(this.reservationId).subscribe({
@@ -48,6 +50,7 @@ export class ConsultComponent {
           const myReservationJSON = JSON.stringify(response)
           localStorage.setItem('reservationConsult', myReservationJSON);
           // console.log(myReservationJSON);
+          this.router.navigate(['/reservationPopUp']);
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error fetching data:', error);
