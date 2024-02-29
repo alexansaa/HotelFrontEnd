@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table">
         <thead>
-            <tr class="borders fullwidth">
+            <tr>
                 <th>Nombre</th>
                 <th>Capacidad</th>
                 <th>Imagen</th>
@@ -9,13 +9,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="borders">
-                <td class="borders">{{ room.room_type }}</td>
-                <td class="borders">
+            <tr>
+                <td>{{ room.room_type }}</td>
+                <td>
                     Capacidad de personas: {{ room.people_capacity }} <br> <br>
                     Numero de camas: {{ room.qty_beds }}
                 </td>
-                <td class="borders">
+                <td>
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -40,7 +40,7 @@
                         </button>
                     </div>
                 </td>
-                <td class="borders">{{ room.price }}</td>
+                <td>{{ room.price }}</td>
             </tr>
         </tbody>
     </table>

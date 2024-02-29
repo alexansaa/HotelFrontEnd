@@ -8,6 +8,7 @@ header {
   padding-top: 3%;
   padding-bottom: 3%;
 }
+
 /* Navigation link styles */
 .nav-link {
   color: rgb(17, 73, 15);
@@ -16,10 +17,10 @@ header {
   /* Adjust spacing between links */
   padding: 5px 15px;
   /* Adjust padding as needed */
-  background-color: rgba(84, 146, 109, 0.2);
-  /* Translucent background */
   border-radius: 5px;
   /* Rounded corners */
+  transition: background-color 0.3s ease;
+  /* Smooth transition effect */
 }
 
 /* Hover effect for navigation links (optional) */
@@ -29,7 +30,7 @@ header {
 }
 
 /* Header title and description styles */
-header h2,
+header h1,
 header p {
   color: gray;
   /* Matches your original color */
@@ -37,7 +38,7 @@ header p {
   /* Maintains center alignment */
 }
 
-header h2 {
+header h1 {
   font-size: 2rem;
   /* Adjust font size as needed */
 }
@@ -45,4 +46,51 @@ header h2 {
 header p {
   font-size: 1rem;
   /* Adjust font size as needed */
+}
+
+/* Navbar styles */
+/* Estilo personalizado para mostrar las tres líneas en el botón del menú hamburguesa */
+.navbar-toggler-icon {
+  background-image: none;
+  width: 24px;
+  height: 18px; /* Ajusta la altura según sea necesario */
+  border-top: 3px solid black; /* Tres líneas */
+  border-bottom: 3px solid black; /* Tres líneas */
+  border-radius: 2px; /* Borde redondeado opcional */
+}
+
+
+
+
+
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+/* Offcanvas menu styles */
+.offcanvas {
+  background-color: #fff;
+  /* Background color of the offcanvas */
+}
+
+.offcanvas-header {
+  background-color: rgba(16, 93, 16, 0.25);
+  /* Header background color */
+}
+
+.offcanvas-body {
+  padding: 1rem;
+}
+
+/* Dropdown item styles */
+.dropdown-item {
+  color: rgb(17, 73, 15);
+  /* Matches your original color */
+}
+
+.dropdown-item:hover {
+  background-color: rgba(84, 146, 109, 0.5);
+  /* Slightly darker on hover */
 }
