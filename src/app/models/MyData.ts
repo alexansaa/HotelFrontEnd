@@ -79,3 +79,8 @@ export interface User {
     phone_number: string, 
     birth: string, 
 }
+
+export interface Payload {
+    body: string,
+    subject: string,
+}

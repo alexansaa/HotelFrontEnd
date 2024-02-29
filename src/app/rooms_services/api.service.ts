@@ -146,7 +146,7 @@ export class ApiService {
       })
     };
 
-    return this.http.delete<Reservation>(apiUrl, options);
+    return this.http.post<Reservation>(apiUrl, reservation, options);
   }
 
   reservationUpdate(reservation: Reservation): Observable<Reservation> {

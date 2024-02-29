@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Reservation, Room, User } from '../models/MyData';
+import { Payload, Reservation, Room, User } from '../models/MyData';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -117,7 +117,11 @@ export class PopUpUpdateReservationComponent implements OnInit {
           next: (response: Reservation) => {
             console.log("Reservacion actualizada con exito");
             console.log(response);
-            this.enviarCorreoCliente();
+            const myPayload: Payload = {
+              body: 'Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nLa modificacion de su cuenta sera procesado hasta en un maximo de 3 dias!\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price',
+              subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
+            }
+            this.enviarCorreoCliente(myPayload);
           },
           error: (error: HttpErrorResponse) => {
             console.error('Error fetching data:', error);
@@ -141,14 +145,14 @@ export class PopUpUpdateReservationComponent implements OnInit {
     }
   }
 
-  enviarCorreoCliente() {
+  enviarCorreoCliente(payload: Payload) {
     // enviamos correo al cliente
     this.apiService.infoUser(this.reservation.user_id).subscribe({
       next: (response: User) => {
         const emailData = {
           recipient: response.email,
-          body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nLa modificacion de su cuenta sera procesado hasta en un maximo de 3 dias!\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price,
-          subject: "Confirmación de Modificacion de Reserva Hotel Copo de Nieve"
+          body: payload.body,
+          subject: payload.subject
         };
 
         // this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
@@ -217,11 +221,16 @@ export class PopUpUpdateReservationComponent implements OnInit {
       next: () => {
         console.log('Reservation deleted!');
         this.closePopUp();
+        const myPayload : Payload = {
+          body: 'Tu Reserva en el hotel Copo de Nieve ha sido cancelada!.\nTu reembolso sera procesado hasta en un maximo de 3 dias!\n',
+          subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
+        };
+        this.enviarCorreoCliente(myPayload);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching data: ', error);
       }
-    })
+    });
   }
 
   guestQtyChange(event: any) {
