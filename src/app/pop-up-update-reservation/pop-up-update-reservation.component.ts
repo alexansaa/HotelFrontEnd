@@ -93,8 +93,8 @@ export class PopUpUpdateReservationComponent implements OnInit{
   }
 
   async onUserUpdate() {
-    let start_Date = Date.parse(this.userStartDate);
-    let end_Date = Date.parse(this.userEndDate);
+    // let start_Date = Date.parse(this.userStartDate);
+    // let end_Date = Date.parse(this.userEndDate);
 
     var myRooms: Room[] = [];
 
@@ -109,8 +109,8 @@ export class PopUpUpdateReservationComponent implements OnInit{
 
       if(this.checkDates(myRooms)){
         this.reservation.total_price = this.costCalculation(myRooms);
-        this.reservation.lastStartDate = new Date(this.userStartDate);
-        this.reservation.lastEndDate = new Date(this.userEndDate);
+        this.reservation.lastStartDate = new Date(this.myStartDate);
+        this.reservation.lastEndDate = new Date(this.myEndDate);
         // modificacion directa a backend sin revisar paypal
         this.apiService.reservationUpdate(this.reservation).subscribe({
           next: (response: Reservation) => {
