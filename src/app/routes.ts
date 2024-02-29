@@ -12,6 +12,7 @@ import { ConsultComponent } from './consult/consult.component';
 import { PrepagoComponent } from './prepago/prepago.component';
 import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
 import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
+import { PopUpUpdateReservationComponent } from './pop-up-update-reservation/pop-up-update-reservation.component';
 
 const routeConfig: Routes = [
   {
@@ -98,6 +99,12 @@ const routeConfig: Routes = [
     path: 'confirmacion',
     component: ConfirmacionComponent,
     title: 'Reserva Confirmada',
+    data: { title: 'Gracias por confiar en Hotel Copo de Nieve' }
+  },
+  {
+    path: 'reservationPopUp',
+    component: PopUpUpdateReservationComponent,
+    title: 'Pop Up - Take a peek',
     data: { title: 'Gracias por confiar en Hotel Copo de Nieve' }
   }
 ];

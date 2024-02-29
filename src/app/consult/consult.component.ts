@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/pop-up-update-reservation.component';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-consult',
@@ -16,7 +17,9 @@ import { PopUpUpdateReservationComponent } from '../pop-up-update-reservation/po
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf
+    NgIf,
+    RouterModule,
+    PopUpUpdateReservationComponent
   ],
   templateUrl: './consult.component.html',
   styleUrl: './consult.component.css'
@@ -29,7 +32,8 @@ export class ConsultComponent {
 
   constructor(
     private apiService: ApiService,
-    private updateReservatinoPopUp: MatDialog
+    private route: ActivatedRoute,
+    // private updateReservatinoPopUp: MatDialog
   ) { }
 
   search() {
@@ -40,9 +44,10 @@ export class ConsultComponent {
           console.log('Received data from backend:', response);
           this.reservation = response
           this.reservation.admin = false
-          this.openPopUp(this.reservation)
-
-
+          // this.openPopUp(this.reservation)
+          const myReservationJSON = JSON.stringify(response)
+          localStorage.setItem('reservationConsult', myReservationJSON);
+          // console.log(myReservationJSON);
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error fetching data:', error);
@@ -53,11 +58,12 @@ export class ConsultComponent {
     }
   }
 
-  openPopUp(reservation: Reservation): void {
-    console.log(reservation);
-    const dialogRef = this.updateReservatinoPopUp.open(PopUpUpdateReservationComponent,{
-      data: reservation
-    });
-  }
+  // openPopUp(reservation: Reservation): void {
+  //   console.log(reservation);
+  //   // const dialogRef = this.updateReservatinoPopUp.open(PopUpUpdateReservationComponent,{
+  //   //   data: reservation
+  //   // });
+
+  // }
 
 }
