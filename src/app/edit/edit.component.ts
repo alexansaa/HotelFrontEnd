@@ -152,8 +152,8 @@ export class EditComponent implements OnInit {
           subject: payload.subject
         };
 
-        // this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
-        this.http.post('http://localhost:5000/send_email', emailData).subscribe({
+        this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
+        // this.http.post('http://localhost:5000/send_email', emailData).subscribe({
           next: (response) => {
             console.log('Correo de modificacion enviado', response);
             this.router.navigate(['/confirmacion']);

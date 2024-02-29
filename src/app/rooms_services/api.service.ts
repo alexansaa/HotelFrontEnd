@@ -89,7 +89,7 @@ export class ApiService {
 
   createUser(user: User): Observable<User> {
     // const apiUrl = 'http://localhost:5000/user/create';
-    const apiUrl = 'https://backend-hr.onrender.com/create';
+    const apiUrl = 'https://backend-hr.onrender.com/user/create';
 
     const options = {
       headers: new HttpHeaders({
