@@ -42,6 +42,10 @@ export class PopUpUpdateReservationComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
+  closePopup(): void {
+    this.dialogRef.close();
+  }
+
   ngOnInit(): void {
     this.reservation = this.reservationData;
     this.myStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);

@@ -36,6 +36,13 @@
   <div class="text-center">
       <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
   </div>
+  <div *ngIf="" class="loading-overlay">
+    <!-- Aquí puedes colocar tu animación de carga -->
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
 
   <button class="btn btn-primary btn-block mb-3 seleccionar-habitaciones" [routerLink]="['/search']">
       Regresar

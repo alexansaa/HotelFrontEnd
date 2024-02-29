@@ -22,12 +22,14 @@ interface Room {
 @Component({
     selector: 'app-pago',
     standalone: true,
-    imports: [NgxPayPalModule, RouterModule, NgFor],
+    imports: [NgxPayPalModule, RouterModule, NgFor, CommonModule],
     templateUrl: './pago.component.html',
     styleUrls: ['./pago.component.css']
 })
 
 export class PagoComponent implements OnInit {
+
+    loading: boolean = false; // Variable para controlar la visibilidad de la animación de carga
 
     combinacion: any;
     fechas: any;
@@ -37,6 +39,8 @@ export class PagoComponent implements OnInit {
     public payPalConfig?: IPayPalConfig;
 
     constructor(private router: Router, private http: HttpClient, private apiService: ApiService) { } // Inyecta HttpClient aquí
+
+
 
     ngOnInit(): void {
         const fechasString = localStorage.getItem('fechas');
@@ -124,9 +128,12 @@ export class PagoComponent implements OnInit {
                 label: 'paypal',
                 layout: 'vertical'
             },
+            
             onApprove: (data, actions) => {
                 console.log('onApprove - transaction was approved, but not authorized', data, actions);
                 // Aquí puedes manejar la aprobación antes de la autorización si es necesario
+                this.loading = true;
+
                 actions.order.capture().then((details: any) => {
                     // Captura exitosa, puedes acceder al ID de la transacción en details.id
                     bookingData.capturedId = details.id;
@@ -145,6 +152,7 @@ export class PagoComponent implements OnInit {
                 this.http.post('http://localhost:5000/send_email', emailData).subscribe({
                     next: (response) => {
                         console.log('Correo de confirmación enviado', response);
+                        this.loading = false;
                         this.router.navigate(['/confirmacion']);
                     },
                     error: (error) => {
