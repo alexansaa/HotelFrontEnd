@@ -116,7 +116,7 @@ export class PopUpUpdateReservationComponent implements OnInit {
             console.log("Reservacion actualizada con exito");
             console.log(response);
             const myPayload: Payload = {
-              body: 'Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nLa modificacion de su cuenta sera procesado hasta en un maximo de 3 dias!\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price',
+              body: 'Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nLa modificacion de su cuenta sera procesado hasta en un maximo de 3 dias!\nDetalles de su reserva:\nId Reserva:' + this.reservation._id + '\nFecha de Checkin: ' + this.reservation.checkin_date + '\nFecha de Checkout: ' + this.reservation.checkout_date + '\nHabitaciones: ' + this.reservation.rooms + '\nNúmero de huéspedes: ' + this.reservation.qty_guests + '\nPrecio Total: ' + this.reservation.total_price,
               subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
             }
             this.enviarCorreoCliente(myPayload);
