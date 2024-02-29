@@ -117,6 +117,7 @@ export class EditComponent implements OnInit {
               subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
             }
             this.enviarCorreoCliente(myPayload);
+            this.router.navigate(['/update']);
           },
           error: (error: HttpErrorResponse) => {
             console.error('Error fetching data:', error);
@@ -154,7 +155,7 @@ export class EditComponent implements OnInit {
         this.http.post('http://localhost:5000/send_email', emailData).subscribe({
           next: (response) => {
             console.log('Correo de modificacion enviado', response);
-            this.router.navigate(['/confirmacion']);
+            //this.router.navigate(['/confirmacion']);
           },
           error: (error) => {
             console.error('Error al enviar el correo de modificacion', error);
@@ -221,6 +222,7 @@ export class EditComponent implements OnInit {
           subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
         };
         this.enviarCorreoCliente(myPayload);
+        this.router.navigate(['/delete']);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching data: ', error);
