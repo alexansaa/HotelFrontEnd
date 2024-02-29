@@ -1,4 +1,4 @@
-<div class="reservation_modification_popup container">
+<div class=" mat-dialog-container reservation_modification_popup container">
     <h3 class="mt-3">Edit Reservation</h3>
 
     <form #reservationUpdateForm="ngForm">
@@ -7,8 +7,8 @@
                 <div class="popup_label_field">
                     <label for="id">Id</label>
                     <mat-form-field>
-                        <input matInput type="text" id="id" name="id" required *ngIf="reservationData"
-                            [(ngModel)]="reservationData._id" disabled>
+                        <input matInput type="text" id="id" name="id" required [(ngModel)]="reservationData._id"
+                            disabled>
                     </mat-form-field>
                 </div>
 
@@ -22,100 +22,59 @@
 
                 <div class="popup_label_field">
                     <label for="checkIn">Check In</label>
-
-                    <div *ngIf="this.reservation.admin; else elseBotonBlockIn">
-                        <mat-form-field>
-                            <input matInput type="date" id="checkIn" name="checkIn" [min]="minDate" required
-                                [(ngModel)]="reservationData.checkin_date" (change)="dateCheckInChange($event)">
-                        </mat-form-field>
-                    </div>
-                    <ng-template #elseBotonBlockIn>
-                        <mat-form-field>
-                            <input matInput type="date" id="checkIn" name="checkIn" [min]="minDate" required
-                                [(ngModel)]="reservationData.checkin_date" (change)="dateCheckInChange($event)">
-                        </mat-form-field>
-                    </ng-template>
+                    <mat-form-field>
+                        <input matInput type="date" id="checkIn" name="checkIn" [min]="minDate" required
+                            [(ngModel)]="reservationData.checkin_date" (change)="dateCheckInChange($event)">
+                    </mat-form-field>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="popup_label_field">
                     <label for="checkOut">Check Out</label>
-
-                    <div *ngIf="this.reservation.admin; else elseBotonBlockOut">
-                        <mat-form-field>
-                            <input matInput type="date" id="checkOut" name="checkOut" required
-                                [(ngModel)]="reservationData.checkout_date" (change)="dateCheckOutChange($event)">
-                        </mat-form-field>
-                    </div>
-                    <ng-template #elseBotonBlockOut>
-                        <mat-form-field>
-                            <input matInput type="date" id="checkOut" name="checkOut" required
-                                [(ngModel)]="reservationData.checkout_date" (change)="dateCheckOutChange($event)">
-                        </mat-form-field>
-                    </ng-template>
+                    <mat-form-field>
+                        <input matInput type="date" id="checkOut" name="checkOut" [min]="minDate" required
+                            [(ngModel)]="reservationData.checkout_date" (change)="dateCheckOutChange($event)">
+                    </mat-form-field>
                 </div>
 
                 <div class="popup_label_field">
                     <label for="qty_guests">Cantidad de Personas</label>
-
-                    <div *ngIf="this.reservation.admin; else elseBotonBlockGuest">
-                        <mat-form-field>
-                            <input matInput type="text" id="qty_guests" name="qty_guests" required
-                                [(ngModel)]="reservationData.qty_guests" (change)="guestQtyChange($event)">
-                        </mat-form-field>
-                    </div>
-                    <ng-template #elseBotonBlockGuest>
-                        <mat-form-field>
-                            <input matInput type="text" id="qty_guests" name="qty_guests" required
-                                [(ngModel)]="reservationData.qty_guests" (change)="guestQtyChange($event)">
-                        </mat-form-field>
-                    </ng-template>
+                    <mat-form-field>
+                        <input matInput type="text" id="qty_guests" name="qty_guests" required
+                            [(ngModel)]="reservationData.qty_guests" (change)="guestQtyChange($event)">
+                    </mat-form-field>
                 </div>
 
                 <div class="popup_label_field">
                     <label for="rooms">Numero de cuartos</label>
-
-                    <div *ngIf="this.reservation.admin; else elseBotonBlockRoomNumber">
-                        <mat-form-field>
-                            <input matInput type="text" id="rooms" name="rooms" required
-                                [(ngModel)]="reservationData.rooms">
-                        </mat-form-field>
-                    </div>
-                    <ng-template #elseBotonBlockRoomNumber>
-                        <mat-form-field>
-                            <input matInput type="text" id="rooms" name="rooms" required
-                                [(ngModel)]="reservationData.rooms" disabled>
-                        </mat-form-field>
-                    </ng-template>
+                    <mat-form-field>
+                        <input matInput type="text" id="rooms" name="rooms" required [(ngModel)]="reservationData.rooms"
+                            [disabled]="!reservation.admin">
+                    </mat-form-field>
                 </div>
             </div>
         </div>
 
         <div class="popup_label_field">
             <label for="total">Total</label>
-            <div *ngIf="this.reservation.admin; else elseBlock">
-                <mat-form-field>
-                    <input matInput type="text" id="total" name="total" required
-                        [(ngModel)]="reservationData.total_price">
-                </mat-form-field>
-            </div>
-            <ng-template #elseBlock>
-                <mat-form-field>
-                    <input matInput type="text" id="total_alter" name="total_alter" required
-                        [(ngModel)]="reservationData.total_price" disabled>
-                </mat-form-field>
-            </ng-template>
+            <mat-form-field>
+                <input matInput type="text" id="total" name="total" required [(ngModel)]="reservationData.total_price"
+                    [disabled]="!reservation.admin">
+            </mat-form-field>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <div *ngIf="this.reservation.admin; else elseBotonBlock">
-                    <button type="button" class="btn btn-primary btn-position" (click)="onAdminUpdate()">Actualizar</button>
+                <div *ngIf="reservation.admin; else elseBotonBlock">
+                    <button type="button" class="btn btn-primary btn-position"
+                        (click)="onAdminUpdate()">Actualizar</button>
                 </div>
                 <ng-template #elseBotonBlock>
-                    <button type="button" class="btn btn-primary btn-position" (click)="onUserUpdate()">Modificar</button>
-                    <button type="button" class="btn btn-primary btn-position" (click)="onUserDelete()">Eliminar</button>
+                    <button type="button" class="btn btn-primary btn-position"
+                        (click)="onUserUpdate()">Modificar</button>
+                    <button type="button" class="btn btn-primary btn-position"
+                        (click)="onUserDelete()">Eliminar</button>
                 </ng-template>
             </div>
         </div>

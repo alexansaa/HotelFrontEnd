@@ -22,3 +22,11 @@
     flex-direction: column;
     padding-right: 15px;
 }
+.mat-dialog-container {
+    position: fixed !important; /* Ensures the dialog is positioned relative to the viewport */
+    bottom: 100px; /* Adjust the bottom value as needed to maintain desired spacing from the footer */
+    background-color: rgb(86, 139, 86);
+    color: white;
+    border-radius: 10px;
+  }
+  
