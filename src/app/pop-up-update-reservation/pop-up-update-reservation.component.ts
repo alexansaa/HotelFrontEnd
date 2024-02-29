@@ -51,12 +51,11 @@ export class PopUpUpdateReservationComponent implements OnInit {
     this.precio = this.reservation.total_price;
     this.paypalId = this.reservation.capturedId;
 
-
-    console.log("myStartDate: " + this.myStartDate);
-    console.log("myEndDate: " + this.myEndDate);
-    console.log("myStartDate: " + Date.parse(this.myStartDate));
-    console.log("myEndDate: " + Date.parse(this.myEndDate));
-    console.log("Mis rooms: " + this.reservation.rooms);
+    // console.log("myStartDate: " + this.myStartDate);
+    // console.log("myEndDate: " + this.myEndDate);
+    // console.log("myStartDate: " + Date.parse(this.myStartDate));
+    // console.log("myEndDate: " + Date.parse(this.myEndDate));
+    // console.log("Mis rooms: " + this.reservation.rooms);
 
     this.getCapacity();
   }
@@ -65,13 +64,6 @@ export class PopUpUpdateReservationComponent implements OnInit {
       // Optional configuration options for the dialog like width, height, etc.
     });
   }
-
-  closeEditReservationPopup() {
-    this.dialogRef.close(); // Assuming you have 'dialogRef' injected in PopUpUpdateReservationComponent
-  }
-  
-  
-  
 
   closePopUp() {
     this.dialogRef.close();
