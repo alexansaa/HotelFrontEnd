@@ -55,7 +55,9 @@ export interface Reservation {
     rooms: [],
     total_price: number,
     admin: boolean,
-    capturedId: string
+    capturedId: string,
+    lastStartDate: Date,
+    lastEndDate: Date
 }
 
 export interface Booking {

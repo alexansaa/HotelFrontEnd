@@ -29,6 +29,8 @@ export class PopUpUpdateReservationComponent implements OnInit{
   myEndDate = new Date().toISOString().slice(0, 10);
   userStartDate = new Date().toISOString().slice(0, 10);
   userEndDate = new Date().toISOString().slice(0, 10);
+  precio: number = 0;
+  paypalId: string = "";
 
   constructor(
     public dialogRef: MatDialogRef<PopUpUpdateReservationComponent>,
@@ -42,11 +44,15 @@ export class PopUpUpdateReservationComponent implements OnInit{
       this.myEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0,10);
       this.userStartDate = new Date(this.reservation.checkin_date).toISOString().slice(0, 10);
       this.userEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0,10);
+      this.precio = this.reservation.total_price;
+      this.paypalId = this.reservation.capturedId;
+
 
       console.log("myStartDate: " + this.myStartDate);
       console.log("myEndDate: " + this.myEndDate);
       console.log("myStartDate: " + Date.parse(this.myStartDate));
       console.log("myEndDate: " + Date.parse(this.myEndDate));
+      console.log("Mis rooms: " + this.reservation.rooms);
 
       this.getCapacity();
   }
@@ -98,7 +104,30 @@ export class PopUpUpdateReservationComponent implements OnInit{
         const response:any = await this.apiService.infoRoom(roomNumber.toString()).toPromise();
         myRooms.push(response);
       }
-      this.reservation.total_price = this.costCalculation(myRooms);
+
+      
+
+      if(this.checkDates(myRooms)){
+        this.reservation.total_price = this.costCalculation(myRooms);
+        this.reservation.lastStartDate = new Date(this.userStartDate);
+        this.reservation.lastEndDate = new Date(this.userEndDate);
+        // modificacion directa a backend sin revisar paypal
+        this.apiService.reservationUpdate(this.reservation).subscribe({
+          next: (response: Reservation) => {
+            console.log("Reservacion actualizada con exito");
+            console.log(response);
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Error fetching data:', error);
+          }
+        });
+
+
+      } else{
+        console.log("No se puede actualizar por las fechas seleccionadas");
+        return;
+      }
+      
     } catch (error) {
       console.error('Error fetching room date: ', error);
     }
@@ -110,17 +139,37 @@ export class PopUpUpdateReservationComponent implements OnInit{
       console.log("myRooms: " + myRooms);
     }
     
-    // modificacion directa a backend sin revisar paypal
-    this.apiService.reservationUpdate(this.reservation).subscribe({
-      next: (response: Reservation) => {
-        console.log("Reservacion actualizada con exito");
-        console.log(response);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error fetching data:', error);
-      }
-    });
+    
   }
+
+  checkDates(rooms: Room[]): boolean {
+    let start_Date = Date.parse(this.userStartDate);
+    let end_Date = Date.parse(this.userEndDate);
+    let isValid = true; // Variable para verificar si todas las fechas son válidas
+
+    rooms.forEach((room: Room) => {
+        room.occupancy.forEach((occupancy) => {
+            let roomStart_Date = Date.parse(occupancy[0]);
+            let roomEnd_Date = Date.parse(occupancy[1]);
+
+            if (Date.parse(this.myStartDate) == roomStart_Date && Date.parse(this.myEndDate) == roomEnd_Date) {
+                console.log("Misma fecha");
+            } else if (start_Date >= roomStart_Date && start_Date <= roomEnd_Date) {
+                console.log("Fecha de inicio dentro de una reserva");
+                isValid = false;
+            } else if (end_Date >= roomStart_Date && end_Date <= roomEnd_Date) {
+                console.log("Fecha de fin dentro de una reserva");
+                isValid = false;
+            } else if (start_Date <= roomStart_Date && end_Date >= roomEnd_Date) {
+                console.log("Fecha de inicio y fin dentro de una reserva");
+                isValid = false;
+            }
+        });
+    });
+
+    return isValid; // Devolver el resultado de la validación
+}
+
 
   costCalculation (rooms: Room[]) {
     // rooms.forEach((room: Room) => {
