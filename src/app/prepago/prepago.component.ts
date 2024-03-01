@@ -50,13 +50,14 @@ export class PrepagoComponent implements OnInit {
     }
 
     this.router.navigate(['/pago']);
-
+    const usuarioString = JSON.stringify(this.myUsuario);
+    localStorage.setItem('usuario', usuarioString);
+    
     this.apiService.createUser(this.myUsuario).subscribe({
       next: (response: User) => {
         console.log("Usuario creado con exito!");
         //
-        const usuarioString = JSON.stringify(this.myUsuario);
-        localStorage.setItem('usuario', usuarioString);
+        
         console.log('usuario: ', usuarioString);
       },
       error: (error: HttpErrorResponse) => {
