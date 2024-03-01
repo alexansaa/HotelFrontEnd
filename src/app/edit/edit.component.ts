@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 // import { environment } from '../../environment';
+// import { environment } from '../../environment';
 
 
 @Component({
@@ -74,7 +75,10 @@ export class EditComponent implements OnInit {
       booking_id: this.reservation._id
     };
 
+    this.getCapacity();
+
   }
+  
 
   getCapacity() {
     this.reservation.rooms.forEach((roomNumber: number) => {
@@ -119,9 +123,12 @@ export class EditComponent implements OnInit {
       }
 
       if (this.checkDates(myRooms)) {
-        this.reservation.total_price = this.costCalculation(myRooms, this.precio);
         this.reservation.lastStartDate = new Date(this.myStartDate);
         this.reservation.lastEndDate = new Date(this.myEndDate);
+
+
+        this.reservation.total_price = this.costCalculation(myRooms, this.precio);
+        
         // modificacion directa a backend sin revisar paypal
 
       } else {
@@ -151,7 +158,7 @@ export class EditComponent implements OnInit {
           subject: payload.subject
         };
 
-        // this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
+        //this.http.post('https://backend-hr.onrender.com/send_email', emailData).subscribe({
         this.http.post('http://localhost:5000/send_email', emailData).subscribe({
           next: (response) => {
             console.log('Correo de modificacion enviado', response);
@@ -211,11 +218,33 @@ export class EditComponent implements OnInit {
     if (totalValue == price) {
       console.log('Mismo precio, no se hace ninguna devolucion o pago adicional');
       alert('Mismo precio, no se hace ninguna devolucion o pago adicional');
+
+      console.log("reservation mod: " + this.reservation);
+      
+      
+      this.apiService.reservationUpdate(this.reservation).subscribe({
+        next: (response: Reservation) => {
+          console.log("Reservacion actualizada con exito");
+          console.log(response);
+          const myPayload: Payload = {
+            body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nValor adicional cobrado: " + this.difference + "\n\nMuchas gracias!!!",
+            subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
+          }
+          this.enviarCorreoCliente(myPayload);
+          this.router.navigate(['/update']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error fetching data:', error);
+        }
+      });
+
+
     } else if (totalValue > price) {
       this.difference = (totalValue - price).toFixed(2);
       console.log('Se va a realizar un recargo adicinal de: ' + this.difference + '\n\nMuchas gracias');
       alert('Se va a realizar un recargo adicinal de: ' + this.difference + '\n\nMuchas gracias');
       this.payment();
+
     } else if (totalValue < price) {
       this.difference = (price - totalValue).toFixed(2);
 
@@ -231,10 +260,19 @@ export class EditComponent implements OnInit {
         body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nEn un lapso de máximo 3 días se te hará el reembolso de: " + this.difference + "\n\nMuchas gracias!!!",
         subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
       }
-      this.enviarCorreoCliente(myPayload);
 
+      this.apiService.reservationUpdate(this.reservation).subscribe({
+        next: (response: Reservation) => {
+          console.log("Reservacion actualizada con exito");
+          console.log(response);
+          this.enviarCorreoCliente(myPayload);
+          this.router.navigate(['/update']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error fetching data:', error);
+        }
+      });
     }
-
     return totalValue;
   }
 
@@ -328,6 +366,11 @@ export class EditComponent implements OnInit {
   //   const headers = new HttpHeaders()
   //     .set('Content-Type', 'application/json')
   //     .set('Authorization', 'Basic ' + btoa(process.env.paypalClientId + ':' + process.env.paypalClientSecret));
+  // private realizarDevolucion() {
+  //   // Prepara las credenciales de autenticación para la API de PayPal
+  //   const headers = new HttpHeaders()
+  //     .set('Content-Type', 'application/json')
+  //     .set('Authorization', 'Basic ' + btoa(process.env.paypalClientId + ':' + process.env.paypalClientSecret));
   
   //   // Crea el cuerpo de la solicitud de devolución
   //   const data = {
@@ -336,7 +379,35 @@ export class EditComponent implements OnInit {
   //       currency: 'USD'
   //     }
   //   };
+  //   // Crea el cuerpo de la solicitud de devolución
+  //   const data = {
+  //     amount: {
+  //       total: this.difference,
+  //       currency: 'USD'
+  //     }
+  //   };
   
+  //   // Realiza la solicitud de devolución a la API de PayPal
+  //   this.http.post<any>('https://api.sandbox.paypal.com/v1/payments/capture/' + this.paypalId + '/refund', data, { headers })
+  //     .subscribe(
+  //       (response) => {
+  //         // La devolución se realizó con éxito
+  //         console.log('Devolución exitosa:', response);
+  //         // Puedes notificar al usuario sobre la devolución exitosa aquí, por ejemplo, enviando un correo electrónico
+  //         const myPayload: Payload = {
+  //           body: 'Tu Reserva en el hotel Copo de Nieve ha sido cancelada!.\nSe ha reembolsado a tu cuenta de paypal la cantidad de: ' + this.difference + '\n\nMuchas gracias!!!',
+  //           subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
+  //         };
+  //         this.enviarCorreoCliente(myPayload);
+  //       },
+  //       (error) => {
+  //         // Se produjo un error al procesar la devolución
+  //         console.error('Error al realizar la devolución:', error);
+  //         // Puedes notificar al usuario sobre el error aquí, por ejemplo, mostrando un mensaje en la interfaz de usuario
+  //         alert('Error al realizar la devolución');
+  //       }
+  //     );
+  // }
   //   // Realiza la solicitud de devolución a la API de PayPal
   //   this.http.post<any>('https://api.sandbox.paypal.com/v1/payments/capture/' + this.paypalId + '/refund', data, { headers })
   //     .subscribe(
@@ -404,10 +475,15 @@ export class EditComponent implements OnInit {
 
     if (event.target.value > this.maxCapacity) {
       event.target.value = this.maxCapacity;
+      this.reservation.qty_guests = this.maxCapacity;
+      return;
     }
     if (event.target.value < this.minCapacity) {
       event.target.value = this.minCapacity;
+      this.reservation.qty_guests = this.minCapacity;
+      return;
     }
+    this.reservation.qty_guests = event.target.value;
   }
 
   dateCheckInChange(event: any) {
