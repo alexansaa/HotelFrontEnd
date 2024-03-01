@@ -43,7 +43,7 @@
                         <label for="qty_guests">Cantidad de Personas</label>
 
                         <input type="text" class="form-control" id="qty_guests" name="qty_guests" required
-                            [(ngModel)]="reservation.qty_guests" (change)="guestQtyChange($event)">
+                            [(ngModel)]="reservation.qty_guests" (change)="guestQtyChange($event)" disabled>
                     </div>
 
                     <div class="form-group popup_label_field">

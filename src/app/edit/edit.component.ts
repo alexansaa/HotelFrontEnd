@@ -241,6 +241,7 @@ export class EditComponent implements OnInit {
       console.log('Se va a realizar un recargo adicinal de: ' + this.difference + '\n\nMuchas gracias');
       alert('Se va a realizar un recargo adicinal de: ' + this.difference + '\n\nMuchas gracias');
       this.payment();
+
     } else if (totalValue < price) {
       this.difference = (price - totalValue).toFixed(2);
 
@@ -256,10 +257,19 @@ export class EditComponent implements OnInit {
         body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nEn un lapso de máximo 3 días se te hará el reembolso de: " + this.difference + "\n\nMuchas gracias!!!",
         subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
       }
-      this.enviarCorreoCliente(myPayload);
 
+      this.apiService.reservationUpdate(this.reservation).subscribe({
+        next: (response: Reservation) => {
+          console.log("Reservacion actualizada con exito");
+          console.log(response);
+          this.enviarCorreoCliente(myPayload);
+          this.router.navigate(['/update']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error fetching data:', error);
+        }
+      });
     }
-
     return totalValue;
   }
 
