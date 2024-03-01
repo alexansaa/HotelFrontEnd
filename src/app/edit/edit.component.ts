@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { environment } from '../../environment';
+// import { environment } from '../../environment';
 
 
 @Component({
@@ -311,7 +311,7 @@ export class EditComponent implements OnInit {
     // Prepara las credenciales de autenticación para la API de PayPal
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Authorization', 'Basic ' + btoa(environment.paypalClientId + ':' + environment.paypalClientSecret));
+      .set('Authorization', 'Basic ' + btoa(process.env.paypalClientId + ':' + process.env.paypalClientSecret));
   
     // Crea el cuerpo de la solicitud de devolución
     const data = {
