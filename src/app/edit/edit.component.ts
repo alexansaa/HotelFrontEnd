@@ -215,6 +215,9 @@ export class EditComponent implements OnInit {
     if (totalValue == price) {
       console.log('Mismo precio, no se hace ninguna devolucion o pago adicional');
       alert('Mismo precio, no se hace ninguna devolucion o pago adicional');
+
+      console.log(this.reservation);
+      
       
       this.apiService.reservationUpdate(this.reservation).subscribe({
         next: (response: Reservation) => {
