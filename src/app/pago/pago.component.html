@@ -1,50 +1,50 @@
 <div class="container">
-  <div class="table-responsive">
-      <table class="table">
-          <tbody>
-              <tr>
-                  <th scope="row">Fecha de inicio</th>
-                  <td>{{ fechas.start_date }}</td>
-              </tr>
-              <tr>
-                  <th scope="row">Fecha de fin</th>
-                  <td>{{ fechas.end_date }}</td>
-              </tr>
-              <tr>
-                  <th scope="row">Número de personas</th>
-                  <td>{{ fechas.num_people }}</td>
-              </tr>
-              <tr>
-                  <th scope="row">Número de habitaciones</th>
-                  <td>{{ fechas.num_rooms }}</td>
-              </tr>
-              <tr>
-                  <th scope="row">Costo total</th>
-                  <td>{{ costoCombinacion }}</td>
-              </tr>
-              <tr>
-                  <th scope="row">Números de habitaciones</th>
-                  <td>
-                      <ul>
-                          <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
-                      </ul>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="text-center">
-      <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
-  </div>
-  <div *ngIf="loading" class="loading-overlay">
-    <!-- Aquí puedes colocar tu animación de carga -->
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Fecha de inicio</th>
+                    <td>{{ fechas.start_date }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Fecha de fin</th>
+                    <td>{{ fechas.end_date }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Número de personas</th>
+                    <td>{{ fechas.num_people }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cantidad de habitaciones</th>
+                    <td>{{ fechas.num_rooms }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Costo total</th>
+                    <td>{{ costoCombinacion }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Numero/s de habitacion/es</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let room of combinacion.rooms">{{ room._id }}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
+    <div class="text-center">
+        <ngx-paypal [config]="payPalConfig" id="paypalButton"></ngx-paypal>
+    </div>
+    <div *ngIf="loading" class="loading-overlay">
+        <!-- Aquí puedes colocar tu animación de carga -->
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 
 
-  <button class="btn btn-primary btn-block mb-3 seleccionar-habitaciones" [routerLink]="['/search']">
-      Regresar
-  </button>
+    <button class="btn btn-primary btn-block mb-3 seleccionar-habitaciones" [routerLink]="['/search']">
+        Regresar
+    </button>
 </div>

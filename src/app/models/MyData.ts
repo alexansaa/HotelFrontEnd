@@ -84,3 +84,10 @@ export interface Payload {
     body: string,
     subject: string,
 }
+
+export interface Refund {
+    reason: string,
+    value: number,
+    user_id: string,
+    booking_id: string,
+}
