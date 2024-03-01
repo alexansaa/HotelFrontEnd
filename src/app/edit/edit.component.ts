@@ -91,8 +91,6 @@ export class EditComponent implements OnInit {
   }
 
   async onUserUpdate() {
-    // let start_Date = Date.parse(this.userStartDate);
-    // let end_Date = Date.parse(this.userEndDate);
 
     var myRooms: Room[] = [];
 
@@ -104,7 +102,7 @@ export class EditComponent implements OnInit {
       }
 
       if (this.checkDates(myRooms)) {
-        this.reservation.total_price = this.costCalculation(myRooms);
+        this.reservation.total_price = this.costCalculation(myRooms, this.precio);
         this.reservation.lastStartDate = new Date(this.myStartDate);
         this.reservation.lastEndDate = new Date(this.myEndDate);
         // modificacion directa a backend sin revisar paypal
@@ -117,6 +115,7 @@ export class EditComponent implements OnInit {
               subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
             }
             this.enviarCorreoCliente(myPayload);
+            this.router.navigate(['/update']);
           },
           error: (error: HttpErrorResponse) => {
             console.error('Error fetching data:', error);
@@ -154,7 +153,7 @@ export class EditComponent implements OnInit {
         this.http.post('http://localhost:5000/send_email', emailData).subscribe({
           next: (response) => {
             console.log('Correo de modificacion enviado', response);
-            this.router.navigate(['/confirmacion']);
+            //this.router.navigate(['/confirmacion']);
           },
           error: (error) => {
             console.error('Error al enviar el correo de modificacion', error);
@@ -193,12 +192,7 @@ export class EditComponent implements OnInit {
   }
 
 
-  costCalculation(rooms: Room[]) {
-    // rooms.forEach((room: Room) => {
-    //   console.log("calculator\n");
-
-    //   console.log(room);
-    // })
+  costCalculation(rooms: Room[], price: number) {
     const roomsprice = rooms.map(room => room.price); // Obtener precios de las habitaciones
     const checkinDate = new Date(this.userStartDate); // Fecha de check-in
     const checkoutDate = new Date(this.userEndDate); // Fecha de check-out
@@ -208,7 +202,21 @@ export class EditComponent implements OnInit {
     const roomspriceFinal = roomsprice.reduce((total, price) => total + price * numberOfDays, 0); // Calcular el costo total multiplicando por el número de días
     const totalValue = parseFloat(roomspriceFinal.toFixed(2));
 
-    return totalValue
+    if (totalValue == price) {
+      console.log('Mismo precio, no se hace ninguna devolucion o pago adicional');
+      alert('Mismo precio, no se hace ninguna devolucion o pago adicional');
+    } else if (totalValue > price) {
+      let diference = totalValue - price;
+      console.log('Se va a realizar un recargo adicinal de: ' + diference + '\n\nMuchas gracias');
+      alert('Se va a realizar un recargo adicinal de: ' + diference + '\n\nMuchas gracias');
+    } else if (totalValue < price) {
+      let diference = price - totalValue;
+      console.log('Se realizara una devolucion de: ' + diference + '\n\nMuchas gracias');
+      alert('Se realizara una devolucion de: ' + diference + '\n\nMuchas gracias');
+
+    }
+
+    return totalValue;
   }
 
   onUserDelete() {
@@ -221,6 +229,7 @@ export class EditComponent implements OnInit {
           subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
         };
         this.enviarCorreoCliente(myPayload);
+        this.router.navigate(['/delete']);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching data: ', error);
@@ -229,9 +238,6 @@ export class EditComponent implements OnInit {
   }
 
   guestQtyChange(event: any) {
-    // console.log(event.target.value);
-    // console.log("max capacity: " + this.maxCapacity);
-    // console.log("min capacity: " + this.minCapacity);
 
     if (event.target.value > this.maxCapacity) {
       event.target.value = this.maxCapacity;

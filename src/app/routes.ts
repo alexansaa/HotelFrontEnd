@@ -14,6 +14,8 @@ import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
 import { ShowRoomsComponent } from './show-rooms/show-rooms.component';
 import { PopUpUpdateReservationComponent } from './pop-up-update-reservation/pop-up-update-reservation.component';
 import { EditComponent } from './edit/edit.component';
+import { UpdateComponent } from './update/update.component';
+import { DeleteComponent } from './delete/delete.component';
 
 const routeConfig: Routes = [
   {
@@ -113,6 +115,18 @@ const routeConfig: Routes = [
     component: EditComponent,
     title: 'Pop Up - Take a peek',
     data: { title: 'Gracias por confiar en Hotel Copo de Nieve', description: 'En esta pestaña edite su reserva.' }
+  },
+  {
+    path: 'update',
+    component: UpdateComponent,
+    title: 'Actualizacion de su reserva',
+    data: { title: 'Gracias por confiar en Hotel Copo de Nieve', description: '.' }
+  },
+  {
+    path: 'delete',
+    component: DeleteComponent,
+    title: 'Eliminacion de su reserva',
+    data: { title: 'Gracias por confiar en Hotel Copo de Nieve', description: '.' }
   },
 ];
 
