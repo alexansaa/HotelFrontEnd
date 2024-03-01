@@ -310,41 +310,41 @@ export class EditComponent implements OnInit {
   } 
 
 
-  private realizarDevolucion() {
-    // Prepara las credenciales de autenticación para la API de PayPal
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', 'Basic ' + btoa(process.env.paypalClientId + ':' + process.env.paypalClientSecret));
+  // private realizarDevolucion() {
+  //   // Prepara las credenciales de autenticación para la API de PayPal
+  //   const headers = new HttpHeaders()
+  //     .set('Content-Type', 'application/json')
+  //     .set('Authorization', 'Basic ' + btoa(process.env.paypalClientId + ':' + process.env.paypalClientSecret));
   
-    // Crea el cuerpo de la solicitud de devolución
-    const data = {
-      amount: {
-        total: this.difference,
-        currency: 'USD'
-      }
-    };
+  //   // Crea el cuerpo de la solicitud de devolución
+  //   const data = {
+  //     amount: {
+  //       total: this.difference,
+  //       currency: 'USD'
+  //     }
+  //   };
   
-    // Realiza la solicitud de devolución a la API de PayPal
-    this.http.post<any>('https://api.sandbox.paypal.com/v1/payments/capture/' + this.paypalId + '/refund', data, { headers })
-      .subscribe(
-        (response) => {
-          // La devolución se realizó con éxito
-          console.log('Devolución exitosa:', response);
-          // Puedes notificar al usuario sobre la devolución exitosa aquí, por ejemplo, enviando un correo electrónico
-          const myPayload: Payload = {
-            body: 'Tu Reserva en el hotel Copo de Nieve ha sido cancelada!.\nSe ha reembolsado a tu cuenta de paypal la cantidad de: ' + this.difference + '\n\nMuchas gracias!!!',
-            subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
-          };
-          this.enviarCorreoCliente(myPayload);
-        },
-        (error) => {
-          // Se produjo un error al procesar la devolución
-          console.error('Error al realizar la devolución:', error);
-          // Puedes notificar al usuario sobre el error aquí, por ejemplo, mostrando un mensaje en la interfaz de usuario
-          alert('Error al realizar la devolución');
-        }
-      );
-  }
+  //   // Realiza la solicitud de devolución a la API de PayPal
+  //   this.http.post<any>('https://api.sandbox.paypal.com/v1/payments/capture/' + this.paypalId + '/refund', data, { headers })
+  //     .subscribe(
+  //       (response) => {
+  //         // La devolución se realizó con éxito
+  //         console.log('Devolución exitosa:', response);
+  //         // Puedes notificar al usuario sobre la devolución exitosa aquí, por ejemplo, enviando un correo electrónico
+  //         const myPayload: Payload = {
+  //           body: 'Tu Reserva en el hotel Copo de Nieve ha sido cancelada!.\nSe ha reembolsado a tu cuenta de paypal la cantidad de: ' + this.difference + '\n\nMuchas gracias!!!',
+  //           subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
+  //         };
+  //         this.enviarCorreoCliente(myPayload);
+  //       },
+  //       (error) => {
+  //         // Se produjo un error al procesar la devolución
+  //         console.error('Error al realizar la devolución:', error);
+  //         // Puedes notificar al usuario sobre el error aquí, por ejemplo, mostrando un mensaje en la interfaz de usuario
+  //         alert('Error al realizar la devolución');
+  //       }
+  //     );
+  // }
 
   onUserDelete() {
     this.apiService.reservationDelete(this.reservation).subscribe({
