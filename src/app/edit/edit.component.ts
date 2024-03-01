@@ -215,6 +215,24 @@ export class EditComponent implements OnInit {
     if (totalValue == price) {
       console.log('Mismo precio, no se hace ninguna devolucion o pago adicional');
       alert('Mismo precio, no se hace ninguna devolucion o pago adicional');
+      
+      this.apiService.reservationUpdate(this.reservation).subscribe({
+        next: (response: Reservation) => {
+          console.log("Reservacion actualizada con exito");
+          console.log(response);
+          const myPayload: Payload = {
+            body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nValor adicional cobrado: " + this.difference + "\n\nMuchas gracias!!!",
+            subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
+          }
+          this.enviarCorreoCliente(myPayload);
+          this.router.navigate(['/update']);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error fetching data:', error);
+        }
+      });
+
+
     } else if (totalValue > price) {
       this.difference = (totalValue - price).toFixed(2);
       console.log('Se va a realizar un recargo adicinal de: ' + this.difference + '\n\nMuchas gracias');
@@ -441,10 +459,15 @@ export class EditComponent implements OnInit {
 
     if (event.target.value > this.maxCapacity) {
       event.target.value = this.maxCapacity;
+      this.reservation.qty_guests = this.maxCapacity;
+      return;
     }
     if (event.target.value < this.minCapacity) {
       event.target.value = this.minCapacity;
+      this.reservation.qty_guests = this.minCapacity;
+      return;
     }
+    this.reservation.qty_guests = event.target.value;
   }
 
   dateCheckInChange(event: any) {
