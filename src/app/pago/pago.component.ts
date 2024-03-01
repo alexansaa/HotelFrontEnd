@@ -136,7 +136,7 @@ export class PagoComponent implements OnInit {
 
                 actions.order.capture().then((details: any) => {
                     // Captura exitosa, puedes acceder al ID de la transacción en details.id
-                    bookingData.capturedId = details.id;
+                    bookingData.capturedId = details.purchase_units[0].payments.captures[0].id;
                     console.log('ID del pago capturado:', bookingData.capturedId);
                     // Ahora puedes realizar cualquier operación adicional que necesites con el ID del pago
                 });
