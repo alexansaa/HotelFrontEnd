@@ -211,9 +211,8 @@ export class EditComponent implements OnInit {
       this.difference = (price - totalValue).toFixed(2);
       console.log('Se realizara una devolucion de: ' + this.difference + '\n\nMuchas gracias');
       alert('Se realizara una devolucion de: ' + this.difference + '\n\nMuchas gracias');
-      this.realizarDevolucion();
       const myPayload: Payload = {
-        body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nValor adicional cobrado: " + this.difference + "\n\nMuchas gracias!!!",
+        body: "Tu Reserva en el hotel Copo de Nieve ha sido modificada con exito!.\nDetalles de su reserva:\nId Reserva:" + this.reservation._id + "\nFecha de Checkin: " + this.reservation.checkin_date + "\nFecha de Checkout: " + this.reservation.checkout_date + "\nHabitaciones: " + this.reservation.rooms + "\nNúmero de huéspedes: " + this.reservation.qty_guests + "\nPrecio Total: " + this.reservation.total_price+ "\nEn un lapso de máximo 3 días se te hará el reembolso de: " + this.difference + "\n\nMuchas gracias!!!",
         subject: 'Confirmación de Modificacion de Reserva Hotel Copo de Nieve'
       }
       this.enviarCorreoCliente(myPayload);
@@ -351,7 +350,13 @@ export class EditComponent implements OnInit {
 
         this.difference = (this.reservation.total_price).toString();
 
-        this.realizarDevolucion();
+        const myPayload: Payload = {
+          body: 'Tu Reserva' + this.reservation._id + ' en el hotel Copo de Nieve ha sido cancelada!.\nSe reembolsará a tu cuenta de paypal la cantidad de: ' + this.difference + '\n\nMuchas gracias!!!',
+          subject: 'Cancelacion de Reserva Hotel Copo de Nieve'
+        };
+        this.enviarCorreoCliente(myPayload);
+
+        //this.realizarDevolucion();
         this.router.navigate(['/delete']);
       },
       error: (error: HttpErrorResponse) => {
