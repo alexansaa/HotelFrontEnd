@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Booking, Reservation, Room, RoomCombination, RoomOccupancy, SearchRoomData, User } from '../models/MyData';
+import { Booking, Refund, Reservation, Room, RoomCombination, RoomOccupancy, SearchRoomData, User } from '../models/MyData';
 
 @Injectable({
   providedIn: 'root' // Adjust provider as needed
@@ -187,6 +187,19 @@ export class ApiService {
     };
 
     return this.http.post<Booking>(apiUrl, booking, options);
+  }
+
+  refundCreate(refund: Refund): Observable<Refund> {
+    // const apiUrl = 'https://backend-hr.onrender.com/user/refunds';
+    const apiUrl = 'http://localhost:5000/user/refunds';
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' // This header might not be necessary for GET requests
+      })
+    };
+
+    return this.http.post<Refund>(apiUrl, refund, options);
   }
 
 

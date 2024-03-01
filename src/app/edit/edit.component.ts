@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Payload, Reservation, Room, User } from '../models/MyData';
+import { Payload, Refund, Reservation, Room, User } from '../models/MyData';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../rooms_services/api.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -29,6 +29,7 @@ export class EditComponent implements OnInit {
 
   loading: boolean = false;
   reservation!: Reservation;
+  refund!: Refund;
   maxCapacity: number = 0;
   minCapacity: number = 0;
   minDate = new Date().toISOString().slice(0, 10);
@@ -64,6 +65,14 @@ export class EditComponent implements OnInit {
     this.userEndDate = new Date(this.reservation.checkout_date).toISOString().slice(0, 10);
     this.precio = this.reservation.total_price;
     this.paypalId = this.reservation.capturedId;
+
+    //Refund data
+    this.refund = {
+      reason: 'Cancelacion de reserva',
+      value: this.reservation.total_price,
+      user_id: this.reservation.user_id,
+      booking_id: this.reservation._id
+    };
 
   }
 
@@ -209,6 +218,13 @@ export class EditComponent implements OnInit {
       this.payment();
     } else if (totalValue < price) {
       this.difference = (price - totalValue).toFixed(2);
+
+      //Datos para el refund
+      this.refund.value = parseFloat(this.difference);
+      this.refund.reason = 'Modificacion de reserva';
+
+      this.realizarReembolso(this.refund);
+
       console.log('Se realizara una devolucion de: ' + this.difference + '\n\nMuchas gracias');
       alert('Se realizara una devolucion de: ' + this.difference + '\n\nMuchas gracias');
       const myPayload: Payload = {
@@ -344,6 +360,9 @@ export class EditComponent implements OnInit {
   // }
 
   onUserDelete() {
+
+    this.realizarReembolso(this.refund);
+
     this.apiService.reservationDelete(this.reservation).subscribe({
       next: () => {
         console.log('Reservation deleted!');
@@ -363,6 +382,22 @@ export class EditComponent implements OnInit {
         console.error('Error fetching data: ', error);
       }
     });
+
+    
+  }
+
+  realizarReembolso(refund: Refund) {
+    this.apiService.refundCreate(refund).subscribe({
+      next: (response: Refund) => {
+        console.log('Reembolso exitoso:', response);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error al realizar el reembolso:', error);
+        // Puedes notificar al usuario sobre el error aquí, por ejemplo, mostrando un mensaje en la interfaz de usuario
+        alert('Error al realizar el reembolso');
+      }
+    });
+
   }
 
   guestQtyChange(event: any) {
