@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
 import { NgxPayPalModule, IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 // import { environment } from '../../environment';
 // import { environment } from '../../environment';
+// import { environment } from '../../environment';
 
 
 @Component({
@@ -123,9 +124,12 @@ export class EditComponent implements OnInit {
       }
 
       if (this.checkDates(myRooms)) {
-        this.reservation.total_price = this.costCalculation(myRooms, this.precio);
         this.reservation.lastStartDate = new Date(this.myStartDate);
         this.reservation.lastEndDate = new Date(this.myEndDate);
+
+
+        this.reservation.total_price = this.costCalculation(myRooms, this.precio);
+        
         // modificacion directa a backend sin revisar paypal
 
       } else {
