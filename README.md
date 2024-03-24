@@ -102,7 +102,7 @@ Install this front-end project with:
   npm install
 ```
 
-Isntall the back-end project with:
+Install the back-end project with:
 
 ### Usage
 
@@ -125,6 +125,7 @@ You can deploy this project using:
 <a href="https://vercel.com/">Vercel</a> as a CI/CD deployment framework and using GitHub projects main branch as a code source.
  
 For the back-end project, you can use <a href="https://render.com/">Render</a>. Please, consider that you need to configure environment variables for the application to correctly run:
+<br>
 ![image](https://github.com/alexansaa/HotelFrontEnd/assets/60579598/33e8b50e-baad-4846-a740-fb7a01087008)
 
 This will require you to implement your own AWS, PayPal, and App variables. 
@@ -132,6 +133,7 @@ This will require you to implement your own AWS, PayPal, and App variables.
 ### Live Demo
 
 Take a look at the live demo implementation at: https://hotel-front-end.vercel.app/search
+It could take a moment to load due to the free instance being used for the deployment, please be patient.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
